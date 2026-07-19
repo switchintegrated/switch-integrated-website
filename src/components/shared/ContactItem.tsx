@@ -10,7 +10,7 @@ export function ContactItem({ icon: Icon, title, value }: ContactItemProps) {
   return (
     <div className="border-b border-white/10 py-5 last:border-b-0">
       <div className="flex gap-4">
-        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white/10 text-cyan-300">
+        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white/10 text-brand-secondary">
           <Icon className="h-5 w-5" />
         </div>
         <div>

@@ -3,6 +3,7 @@ type SectionHeaderProps = {
   title: string;
   description: string;
   centered?: boolean;
+  light?: boolean;
 };
 
 export function SectionHeader({
@@ -10,16 +11,39 @@ export function SectionHeader({
   title,
   description,
   centered = false,
+  light = false,
 }: SectionHeaderProps) {
   return (
     <div className={centered ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
-      <p className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-700">
+      <p
+        className={
+          light
+            ? "text-sm font-extrabold uppercase tracking-[0.25em] text-brand-secondary"
+            : "text-sm font-extrabold uppercase tracking-[0.25em] text-brand-secondary"
+        }
+      >
         {eyebrow}
       </p>
-      <h2 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
+
+      <h2
+        className={
+          light
+            ? "mt-4 font-heading text-4xl font-extrabold tracking-[-0.04em] text-white md:text-5xl"
+            : "mt-4 font-heading text-4xl font-extrabold tracking-[-0.04em] text-brand-dark md:text-5xl"
+        }
+      >
         {title}
       </h2>
-      <p className="mt-5 text-lg leading-8 text-slate-600">{description}</p>
+
+      <p
+        className={
+          light
+            ? "mt-5 text-lg leading-8 text-white/70"
+            : "mt-5 text-lg leading-8 text-slate-600"
+        }
+      >
+        {description}
+      </p>
     </div>
   );
 }

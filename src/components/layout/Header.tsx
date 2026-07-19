@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
@@ -20,45 +21,53 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/85 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
-        <a href="#" onClick={closeMenu} className="flex items-center gap-3">
-          <div className="grid h-10 w-10 place-items-center rounded-2xl bg-slate-950 font-bold text-white">
-            SI
+    <header className="sticky top-0 z-50 border-b border-brand-secondary/10 bg-white/90 backdrop-blur-2xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+        <Link
+          href="/"
+          onClick={closeMenu}
+          className="group flex items-center gap-3"
+        >
+          <div className="relative grid h-12 w-12 place-items-center overflow-hidden rounded-2xl bg-brand-primary text-sm font-extrabold text-white shadow-lg shadow-brand-primary/20">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(30,188,187,0.55),transparent_36%)]" />
+            <span className="relative">SI</span>
           </div>
+
           <div>
-            <p className="text-sm font-semibold tracking-wide">
+            <p className="font-heading text-sm font-extrabold tracking-[-0.02em] text-brand-dark transition group-hover:text-brand-primary">
               Switch Integrated
             </p>
-            <p className="text-xs text-slate-500">Connect. Engage. Grow.</p>
+            <p className="text-xs font-medium text-slate-500">
+              Connect. Engage. Grow.
+            </p>
           </div>
-        </a>
+        </Link>
 
-        <nav className="hidden items-center gap-8 text-sm font-medium text-slate-600 lg:flex">
+        <nav className="hidden items-center gap-1 rounded-full border border-slate-200 bg-white/80 p-1 text-sm font-semibold text-slate-600 shadow-sm lg:flex">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
-              className="hover:text-slate-950"
+              className="rounded-full px-4 py-2.5 transition hover:bg-brand-soft hover:text-brand-primary"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         <div className="hidden lg:block">
-          <a
+          <Link
             href="/contact"
-            className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-cyan-700"
+            className="inline-flex items-center justify-center rounded-full bg-brand-primary px-6 py-3 text-sm font-bold text-white shadow-lg shadow-brand-primary/20 transition hover:-translate-y-0.5 hover:bg-brand-dark"
           >
             Let’s Talk
-          </a>
+          </Link>
         </div>
 
         <button
           type="button"
           onClick={() => setIsOpen((current) => !current)}
-          className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-950 lg:hidden"
+          className="grid h-11 w-11 place-items-center rounded-full border border-brand-secondary/20 bg-brand-soft text-brand-primary lg:hidden"
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}
         >
@@ -67,26 +76,26 @@ export function Header() {
       </div>
 
       {isOpen ? (
-        <div className="border-t border-slate-200 bg-white px-6 py-5 shadow-xl lg:hidden">
+        <div className="border-t border-brand-secondary/10 bg-white px-6 py-5 shadow-xl lg:hidden">
           <nav className="mx-auto flex max-w-7xl flex-col gap-2">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={closeMenu}
-                className="rounded-2xl px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-slate-950"
+                className="rounded-2xl px-4 py-3 text-sm font-bold text-slate-700 transition hover:bg-brand-soft hover:text-brand-primary"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
 
-            <a
+            <Link
               href="/contact"
               onClick={closeMenu}
-              className="mt-3 inline-flex items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-cyan-700"
+              className="mt-3 inline-flex items-center justify-center rounded-full bg-brand-primary px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-dark"
             >
               Let’s Talk
-            </a>
+            </Link>
           </nav>
         </div>
       ) : null}

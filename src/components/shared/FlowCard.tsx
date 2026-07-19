@@ -12,14 +12,14 @@ export function FlowCard({ icon: Icon, title, active = false }: FlowCardProps) {
     <div
       className={`flex items-center justify-between rounded-3xl border p-5 ${
         active
-          ? "border-slate-950 bg-slate-950 text-white"
-          : "border-slate-200 bg-slate-50 text-slate-950"
+          ? "border-slate-950 bg-brand-primary text-white"
+          : "border-slate-200 bg-slate-50 text-brand-dark"
       }`}
     >
       <div className="flex items-center gap-4">
         <div
           className={`grid h-12 w-12 place-items-center rounded-2xl ${
-            active ? "bg-cyan-300 text-slate-950" : "bg-white text-cyan-700"
+            active ? "bg-brand-secondary text-brand-dark" : "bg-white text-brand-primary"
           }`}
         >
           <Icon className="h-5 w-5" />
@@ -28,7 +28,7 @@ export function FlowCard({ icon: Icon, title, active = false }: FlowCardProps) {
       </div>
 
       <ArrowRight
-        className={active ? "h-5 w-5 text-cyan-200" : "h-5 w-5 text-slate-400"}
+        className={active ? "h-5 w-5 text-brand-secondary" : "h-5 w-5 text-slate-400"}
       />
     </div>
   );

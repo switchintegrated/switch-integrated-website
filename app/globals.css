@@ -2,25 +2,441 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #071827;
+  --brand-primary: #003852;
+  --brand-secondary: #1ebcbb;
+  --brand-soft: #e9fbfb;
+  --brand-dark: #001f31;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-dark: var(--brand-dark);
+  --font-sans: var(--font-poppins);
+  --font-heading: var(--font-manrope);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-heading {
+  font-family: var(--font-manrope), var(--font-poppins), Arial, Helvetica, sans-serif;
+}
+
+/* Hero entry animation */
+@keyframes heroCopyIn {
+  from {
+    transform: translateY(32px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes heroSceneIn {
+  from {
+    transform: translateX(70px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes heroPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(30, 188, 187, 0);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 36px rgba(30, 188, 187, 0.85);
+    transform: scale(1.07);
+  }
+}
+
+/* Hero stage animation */
+@keyframes stageSweep {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(310%);
+    opacity: 0;
+  }
+}
+
+@keyframes stageMainFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes stageChipFloat {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
+
+@keyframes stageDot {
+  0% {
+    transform: translate(0, -50%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(310px, -50%);
+    opacity: 0;
+  }
+}
+
+@keyframes stageDotTwo {
+  0% {
+    transform: translate(0, -50%);
+    opacity: 0;
+  }
+  45% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(310px, -50%);
+    opacity: 0;
+  }
+}
+
+@keyframes pulseRing {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.9;
+  }
+}
+
+/* Hero queue card transition animation */
+@keyframes queueCardOne {
+  0% {
+    transform: translateX(-90px) scale(0.92);
+    opacity: 0;
+  }
+  7%,
+  20% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+  26%,
+  100% {
+    transform: translateX(285px) scale(0.92);
+    opacity: 0;
+  }
+}
+
+@keyframes queueCardTwo {
+  0%,
+  24% {
+    transform: translateX(-90px) scale(0.92);
+    opacity: 0;
+  }
+  31%,
+  44% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+  50%,
+  100% {
+    transform: translateX(285px) scale(0.92);
+    opacity: 0;
+  }
+}
+
+@keyframes queueCardThree {
+  0%,
+  48% {
+    transform: translateX(-90px) scale(0.92);
+    opacity: 0;
+  }
+  55%,
+  68% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+  74%,
+  100% {
+    transform: translateX(285px) scale(0.92);
+    opacity: 0;
+  }
+}
+
+@keyframes queueCardFour {
+  0%,
+  72% {
+    transform: translateX(-90px) scale(0.92);
+    opacity: 0;
+  }
+  79%,
+  92% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(285px) scale(0.92);
+    opacity: 0;
+  }
+}
+
+@keyframes queueSignal {
+  0% {
+    transform: translateX(-130%);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  32% {
+    transform: translateX(650%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(650%);
+    opacity: 0;
+  }
+}
+
+@keyframes queueDot {
+  0% {
+    transform: translate(0, -50%);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  32% {
+    transform: translate(370px, -50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(370px, -50%);
+    opacity: 0;
+  }
+}
+
+/* Light communication-layer section animation */
+@keyframes businessFlowOne {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(10px);
+    opacity: 0.95;
+  }
+}
+
+@keyframes businessFlowTwo {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translateX(28px);
+    opacity: 1;
+  }
+}
+
+@keyframes businessFlowThree {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translateX(10px);
+    opacity: 1;
+  }
+}
+
+@keyframes customerChannelOne {
+  0%,
+  100% {
+    transform: translateY(0);
+    box-shadow: 0 10px 28px rgba(0, 56, 82, 0.08);
+  }
+  50% {
+    transform: translateY(-10px);
+    box-shadow: 0 18px 40px rgba(30, 188, 187, 0.22);
+  }
+}
+
+@keyframes customerChannelTwo {
+  0%,
+  100% {
+    transform: translateY(0);
+    box-shadow: 0 10px 28px rgba(0, 56, 82, 0.08);
+  }
+  50% {
+    transform: translateY(8px);
+    box-shadow: 0 18px 40px rgba(30, 188, 187, 0.18);
+  }
+}
+
+@keyframes customerChannelThree {
+  0%,
+  100% {
+    transform: translateY(0);
+    box-shadow: 0 10px 28px rgba(0, 56, 82, 0.08);
+  }
+  50% {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 40px rgba(30, 188, 187, 0.18);
+  }
+}
+
+@keyframes customerChannelFour {
+  0%,
+  100% {
+    transform: translateY(0);
+    box-shadow: 0 10px 28px rgba(0, 56, 82, 0.08);
+  }
+  50% {
+    transform: translateY(7px);
+    box-shadow: 0 18px 40px rgba(30, 188, 187, 0.18);
+  }
+}
+
+@keyframes switchEngineFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes engineRingPulse {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes engineIconPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(30, 188, 187, 0);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 28px rgba(30, 188, 187, 0.75);
+  }
+}
+
+@keyframes businessPacketLine {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(240%);
+    opacity: 0;
+  }
+}
+
+@keyframes customerPacketLine {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(240%);
+    opacity: 0;
+  }
+}
+
+@keyframes businessPacketDot {
+  0% {
+    transform: translate(0, -50%) scale(0.8);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(160px, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes customerPacketDot {
+  0% {
+    transform: translate(0, -50%) scale(0.8);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(160px, -50%) scale(1);
+    opacity: 0;
+  }
 }

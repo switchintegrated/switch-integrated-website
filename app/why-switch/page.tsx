@@ -26,12 +26,12 @@ const extraReasons = [
 
 export default function WhySwitchPage() {
   return (
-    <main className="min-h-screen bg-[#f7fbfc] text-slate-950">
+    <main className="min-h-screen bg-[#f7fbfc] text-brand-dark">
       <Header />
 
       <section className="bg-white px-6 py-24 lg:px-8">
         <div className="mx-auto max-w-5xl text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-700">
+          <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-primary">
             Why Switch Integrated
           </p>
           <h1 className="mt-5 text-5xl font-semibold tracking-tight md:text-6xl">
@@ -52,7 +52,7 @@ export default function WhySwitchPage() {
               key={reason.title}
               className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm"
             >
-              <div className="grid h-14 w-14 place-items-center rounded-2xl bg-cyan-50 text-cyan-700">
+              <div className="grid h-14 w-14 place-items-center rounded-2xl bg-brand-soft text-brand-primary">
                 <ShieldCheck className="h-6 w-6" />
               </div>
               <h2 className="mt-7 text-2xl font-semibold">{reason.title}</h2>
@@ -70,7 +70,7 @@ export default function WhySwitchPage() {
                 key={reason.title}
                 className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm"
               >
-                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-cyan-50 text-cyan-700">
+                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-brand-soft text-brand-primary">
                   <Icon className="h-6 w-6" />
                 </div>
                 <h2 className="mt-7 text-2xl font-semibold">{reason.title}</h2>
@@ -85,8 +85,8 @@ export default function WhySwitchPage() {
 
       <section className="bg-white px-6 py-24 lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-3">
-          <div className="rounded-[2rem] bg-slate-950 p-8 text-white">
-            <Scale className="h-8 w-8 text-cyan-300" />
+          <div className="rounded-[2rem] bg-brand-primary p-8 text-white">
+            <Scale className="h-8 w-8 text-brand-secondary" />
             <h2 className="mt-6 text-2xl font-semibold">Built for scale</h2>
             <p className="mt-4 leading-7 text-slate-300">
               Whether you are running thousands of messages a day or millions,
@@ -96,7 +96,7 @@ export default function WhySwitchPage() {
           </div>
 
           <div className="rounded-[2rem] border border-slate-200 bg-[#f7fbfc] p-8 lg:col-span-2">
-            <CheckCircle2 className="h-8 w-8 text-cyan-700" />
+            <CheckCircle2 className="h-8 w-8 text-brand-primary" />
             <h2 className="mt-6 text-3xl font-semibold">
               We measure success by your outcomes.
             </h2>
