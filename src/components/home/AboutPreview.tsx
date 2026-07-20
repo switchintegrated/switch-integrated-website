@@ -19,7 +19,7 @@ export function AboutPreview() {
           </h2>
 
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-            Switch Integrated Partners Limited delivers digital solutions and
+            Switch Integrated delivers digital solutions and
             customer engagement technology for businesses that need reliable
             communication infrastructure, mobile engagement, verification, and
             strategic digital support.

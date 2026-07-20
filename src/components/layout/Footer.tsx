@@ -32,7 +32,7 @@ export function Footer() {
             </Link>
 
             <p className="mt-6 max-w-md text-sm leading-7 text-white/60">
-              Switch Integrated Partners Limited helps African businesses
+              Switch Integrated helps African businesses
               communicate better, reach further, and grow faster through digital
               communication solutions.
             </p>
@@ -103,7 +103,7 @@ export function Footer() {
 
         <div className="flex flex-col gap-3 pt-7 text-xs text-white/45 md:flex-row md:items-center md:justify-between">
           <p>
-            © {new Date().getFullYear()} Switch Integrated Partners Limited. All
+            © {new Date().getFullYear()} Switch Integrated. All
             rights reserved.
           </p>
           <p>Built for better business communication.</p>

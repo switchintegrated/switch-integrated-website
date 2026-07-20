@@ -15,7 +15,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Switch Integrated Partners Limited",
+  title: "Switch Integrated",
   description:
     "Switch Integrated helps African businesses communicate better, reach further, and grow faster through digital communication solutions.",
 };

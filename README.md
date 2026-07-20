@@ -3,7 +3,7 @@
 
 # Switch Integrated Website
 
-Corporate website and CMS foundation for **Switch Integrated Partners Limited**.
+Corporate website and CMS foundation for **Switch Integrated**.
 
 Switch Integrated is positioned as a digital solutions and customer engagement company helping businesses across Africa communicate better, reach further, and grow with confidence.
 
