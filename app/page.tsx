@@ -10,6 +10,7 @@ import { SolutionsSection } from "@/src/components/home/SolutionsSection";
 import { WhySwitchSection } from "@/src/components/home/WhySwitchSection";
 import { client } from "@/sanity/lib/client";
 import {
+  aboutPageQuery,
   homepageQuery,
   servicesQuery,
   siteSettingsQuery,
@@ -46,11 +47,26 @@ type SiteSettings = {
   footerText?: string;
 };
 
+type AboutPage = {
+  heroEyebrow?: string;
+  heroHeadline?: string;
+  heroSubheadline?: string;
+  storyTitle?: string;
+  storyBody?: string;
+  vision?: string;
+  mission?: string;
+  values?: {
+    title?: string;
+    description?: string;
+  }[];
+};
+
 export default async function Home() {
-  const [homepage, services, siteSettings] = await Promise.all([
+  const [homepage, services, siteSettings, aboutPage] = await Promise.all([
     client.fetch<Homepage | null>(homepageQuery),
     client.fetch<Service[]>(servicesQuery),
     client.fetch<SiteSettings | null>(siteSettingsQuery),
+    client.fetch<AboutPage | null>(aboutPageQuery),
   ]);
 
   return (
@@ -60,7 +76,7 @@ export default async function Home() {
       <SolutionsSection services={services} />
       <EcosystemSection />
       <AudienceSection />
-      <AboutPreview />
+      <AboutPreview content={aboutPage} />
       <WhySwitchSection />
       <HowWeWorkSection />
       <ContactCTA settings={siteSettings} />

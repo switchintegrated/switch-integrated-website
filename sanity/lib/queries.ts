@@ -14,6 +14,20 @@ export const homepageQuery = groq`
   }
 `;
 
+export const aboutPageQuery = groq`
+  *[_type == "aboutPage" && _id == "aboutPage"][0]{
+    heroEyebrow,
+    heroHeadline,
+    heroSubheadline,
+    storyTitle,
+    storyBody,
+    vision,
+    mission,
+    values,
+    seo
+  }
+`;
+
 export const servicesQuery = groq`
   *[_type == "service"] | order(order asc) {
     title,

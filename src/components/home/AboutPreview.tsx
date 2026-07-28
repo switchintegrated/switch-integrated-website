@@ -2,7 +2,71 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 
-export function AboutPreview() {
+type AboutPreviewContent = {
+  heroEyebrow?: string;
+  heroHeadline?: string;
+  heroSubheadline?: string;
+  storyTitle?: string;
+  storyBody?: string;
+  vision?: string;
+  mission?: string;
+  values?: {
+    title?: string;
+    description?: string;
+  }[];
+};
+
+const fallbackContent: Required<Omit<AboutPreviewContent, "values">> & {
+  values: {
+    title: string;
+    description: string;
+  }[];
+} = {
+  heroEyebrow: "About Switch Integrated",
+  heroHeadline: "Built to help businesses communicate better and grow faster.",
+  heroSubheadline:
+    "Switch Integrated delivers digital solutions and customer engagement technology for businesses that need reliable communication infrastructure, mobile engagement, verification, and strategic digital support.",
+  storyTitle: "Who We Are",
+  storyBody:
+    "Switch Integrated is a digital solutions and customer engagement company helping African businesses connect with customers through reliable messaging, verification, mobile engagement, and communication infrastructure.",
+  vision:
+    "To become a trusted African technology partner for businesses that want to connect, engage, and grow across the continent.",
+  mission:
+    "To provide digital communication and engagement solutions that help businesses reach customers more effectively, operate more efficiently, and scale with confidence.",
+  values: [
+    {
+      title: "Enterprise messaging",
+      description: "Reliable communication for growing businesses.",
+    },
+    {
+      title: "Customer verification",
+      description: "Secure OTP and identity verification support.",
+    },
+    {
+      title: "Mobile engagement",
+      description: "Customer journeys across mobile-first channels.",
+    },
+    {
+      title: "Digital infrastructure",
+      description: "Scalable systems for business communication.",
+    },
+  ],
+};
+
+export function AboutPreview({
+  content,
+}: {
+  content?: AboutPreviewContent | null;
+}) {
+  const about = {
+    ...fallbackContent,
+    ...content,
+    values:
+      content?.values && content.values.length > 0
+        ? content.values
+        : fallbackContent.values,
+  };
+
   return (
     <section className="relative overflow-hidden bg-white px-6 py-24 lg:px-8">
       <div className="absolute left-[-10%] top-[8%] h-96 w-96 rounded-full bg-brand-secondary/10 blur-3xl" />
@@ -11,29 +75,21 @@ export function AboutPreview() {
       <div className="relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[0.95fr_1.05fr]">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.28em] text-brand-secondary">
-            About Switch Integrated
+            {about.heroEyebrow}
           </p>
 
           <h2 className="mt-5 max-w-3xl font-heading text-4xl font-extrabold tracking-[-0.045em] text-brand-dark md:text-6xl">
-            Built to help businesses communicate better and grow faster.
+            {about.storyTitle || about.heroHeadline}
           </h2>
 
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-            Switch Integrated delivers digital solutions and
-            customer engagement technology for businesses that need reliable
-            communication infrastructure, mobile engagement, verification, and
-            strategic digital support.
+            {about.storyBody || about.heroSubheadline}
           </p>
 
           <div className="mt-9 grid gap-4 sm:grid-cols-2">
-            {[
-              "Enterprise messaging",
-              "Customer verification",
-              "Mobile engagement",
-              "Digital infrastructure",
-            ].map((item) => (
+            {about.values.slice(0, 4).map((item) => (
               <div
-                key={item}
+                key={item.title}
                 className="group flex items-center gap-3 rounded-2xl border border-brand-secondary/15 bg-brand-soft/70 px-4 py-4 transition hover:-translate-y-1 hover:bg-white hover:shadow-xl hover:shadow-brand-primary/10"
               >
                 <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white text-brand-primary shadow-sm transition group-hover:bg-brand-secondary">
@@ -41,7 +97,7 @@ export function AboutPreview() {
                 </span>
 
                 <span className="text-sm font-bold text-brand-dark">
-                  {item}
+                  {item.title}
                 </span>
               </div>
             ))}
