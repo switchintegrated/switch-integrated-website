@@ -9,7 +9,11 @@ import { HowWeWorkSection } from "@/src/components/home/HowWeWorkSection";
 import { SolutionsSection } from "@/src/components/home/SolutionsSection";
 import { WhySwitchSection } from "@/src/components/home/WhySwitchSection";
 import { client } from "@/sanity/lib/client";
-import { homepageQuery, servicesQuery } from "@/sanity/lib/queries";
+import {
+  homepageQuery,
+  servicesQuery,
+  siteSettingsQuery,
+} from "@/sanity/lib/queries";
 
 export const revalidate = 60;
 
@@ -32,10 +36,21 @@ type Service = {
   order?: number;
 };
 
+type SiteSettings = {
+  siteName?: string;
+  tagline?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  linkedin?: string;
+  footerText?: string;
+};
+
 export default async function Home() {
-  const [homepage, services] = await Promise.all([
+  const [homepage, services, siteSettings] = await Promise.all([
     client.fetch<Homepage | null>(homepageQuery),
     client.fetch<Service[]>(servicesQuery),
+    client.fetch<SiteSettings | null>(siteSettingsQuery),
   ]);
 
   return (
@@ -48,8 +63,8 @@ export default async function Home() {
       <AboutPreview />
       <WhySwitchSection />
       <HowWeWorkSection />
-      <ContactCTA />
-      <Footer />
+      <ContactCTA settings={siteSettings} />
+      <Footer settings={siteSettings} />
     </main>
   );
 }

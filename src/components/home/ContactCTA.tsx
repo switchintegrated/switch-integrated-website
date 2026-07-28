@@ -8,7 +8,58 @@ import {
   Sparkles,
 } from "lucide-react";
 
-export function ContactCTA() {
+type SiteSettings = {
+  siteName?: string;
+  tagline?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  linkedin?: string;
+  footerText?: string;
+};
+
+const fallbackSettings: Required<SiteSettings> = {
+  siteName: "Switch Integrated",
+  tagline: "Connect. Engage. Grow.",
+  email: "info@switchipl.com",
+  phone: "+234-913-958-0126",
+  address: "42, Ashiek Jarma Street, Jabi, Abuja.",
+  linkedin: "https://linkedin.com/company/switch-integrated",
+  footerText:
+    "Switch Integrated helps African businesses communicate better, reach further, and grow faster through digital communication solutions.",
+};
+
+function phoneHref(phone: string) {
+  return `tel:${phone.replace(/[^\d+]/g, "")}`;
+}
+
+export function ContactCTA({ settings }: { settings?: SiteSettings | null }) {
+  const content = {
+    ...fallbackSettings,
+    ...settings,
+  };
+
+  const contactItems = [
+    {
+      icon: Phone,
+      label: "Phone",
+      value: content.phone,
+      href: phoneHref(content.phone),
+    },
+    {
+      icon: Mail,
+      label: "Email",
+      value: content.email,
+      href: `mailto:${content.email}`,
+    },
+    {
+      icon: MapPin,
+      label: "Office",
+      value: content.address,
+      href: null,
+    },
+  ];
+
   return (
     <section className="relative overflow-hidden bg-[#f4fcfc] px-6 py-24 lg:px-8">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(30,188,187,0.18),transparent_32%),radial-gradient(circle_at_85%_80%,rgba(0,56,82,0.14),transparent_34%)]" />
@@ -40,7 +91,7 @@ export function ContactCTA() {
             </h2>
 
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/70">
-              Talk to Switch Integrated about messaging, verification, USSD,
+              Talk to {content.siteName} about messaging, verification, USSD,
               digital communication infrastructure, and partnership-led
               solutions for your business.
             </p>
@@ -55,54 +106,50 @@ export function ContactCTA() {
               </Link>
 
               <a
-                href="mailto:info@switchipl.com"
+                href={`mailto:${content.email}`}
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/10 px-7 py-4 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-white hover:text-brand-primary"
               >
                 <Mail className="h-4 w-4" />
-                info@switchipl.com
+                {content.email}
               </a>
             </div>
           </div>
 
           <div className="grid gap-4">
-            {[
-              {
-                icon: Phone,
-                label: "Phone",
-                value: "+234-913-958-0126",
-              },
-              {
-                icon: Mail,
-                label: "Email",
-                value: "info@switchipl.com",
-              },
-              {
-                icon: MapPin,
-                label: "Office",
-                value: "42, Ashiek Jarma Street, Jabi, Abuja",
-              },
-            ].map((item) => {
+            {contactItems.map((item) => {
               const Icon = item.icon;
 
-              return (
+              const inner = (
+                <div className="flex gap-4">
+                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-brand-secondary text-brand-primary">
+                    <Icon className="h-5 w-5" />
+                  </div>
+
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.2em] text-brand-secondary">
+                      {item.label}
+                    </p>
+                    <p className="mt-2 text-sm font-bold leading-6 text-white">
+                      {item.value}
+                    </p>
+                  </div>
+                </div>
+              );
+
+              return item.href ? (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="group rounded-[1.5rem] border border-white/10 bg-white/10 p-5 backdrop-blur transition hover:bg-white/15"
+                >
+                  {inner}
+                </a>
+              ) : (
                 <div
                   key={item.label}
                   className="group rounded-[1.5rem] border border-white/10 bg-white/10 p-5 backdrop-blur transition hover:bg-white/15"
                 >
-                  <div className="flex gap-4">
-                    <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-brand-secondary text-brand-primary">
-                      <Icon className="h-5 w-5" />
-                    </div>
-
-                    <div>
-                      <p className="text-xs font-black uppercase tracking-[0.2em] text-brand-secondary">
-                        {item.label}
-                      </p>
-                      <p className="mt-2 text-sm font-bold leading-6 text-white">
-                        {item.value}
-                      </p>
-                    </div>
-                  </div>
+                  {inner}
                 </div>
               );
             })}
@@ -118,7 +165,7 @@ export function ContactCTA() {
                     Core promise
                   </p>
                   <p className="mt-2 text-sm font-bold leading-6 text-white">
-                    Where businesses connect, engage, and grow.
+                    {content.tagline}
                   </p>
                 </div>
               </div>

@@ -24,3 +24,15 @@ export const servicesQuery = groq`
     seo
   }
 `;
+
+export const siteSettingsQuery = groq`
+  *[_type == "siteSettings" && _id == "siteSettings"][0]{
+    siteName,
+    tagline,
+    email,
+    phone,
+    address,
+    linkedin,
+    footerText
+  }
+`;

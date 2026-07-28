@@ -9,7 +9,37 @@ const footerLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
-export function Footer() {
+type SiteSettings = {
+  siteName?: string;
+  tagline?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  linkedin?: string;
+  footerText?: string;
+};
+
+const fallbackSettings: Required<SiteSettings> = {
+  siteName: "Switch Integrated",
+  tagline: "Connect. Engage. Grow.",
+  email: "info@switchipl.com",
+  phone: "+234-913-958-0126",
+  address: "42, Ashiek Jarma Street, Jabi, Abuja.",
+  linkedin: "https://linkedin.com/company/switch-integrated",
+  footerText:
+    "Switch Integrated helps African businesses communicate better, reach further, and grow faster through digital communication solutions.",
+};
+
+function phoneHref(phone: string) {
+  return `tel:${phone.replace(/[^\d+]/g, "")}`;
+}
+
+export function Footer({ settings }: { settings?: SiteSettings | null }) {
+  const content = {
+    ...fallbackSettings,
+    ...settings,
+  };
+
   return (
     <footer className="bg-brand-dark px-6 py-14 text-white lg:px-8">
       <div className="mx-auto max-w-7xl">
@@ -23,23 +53,21 @@ export function Footer() {
 
               <div>
                 <p className="font-heading text-base font-extrabold tracking-[-0.03em] text-white">
-                  Switch Integrated
+                  {content.siteName}
                 </p>
                 <p className="text-xs font-medium text-white/50">
-                  Connect. Engage. Grow.
+                  {content.tagline}
                 </p>
               </div>
             </Link>
 
             <p className="mt-6 max-w-md text-sm leading-7 text-white/60">
-              Switch Integrated helps African businesses
-              communicate better, reach further, and grow faster through digital
-              communication solutions.
+              {content.footerText}
             </p>
 
             <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs font-bold text-brand-secondary">
               <Sparkles className="h-4 w-4" />
-              Where businesses connect, engage, and grow.
+              {content.tagline}
             </div>
           </div>
 
@@ -68,28 +96,28 @@ export function Footer() {
 
             <div className="mt-5 grid gap-4 text-sm text-white/65">
               <a
-                href="tel:+2349139580126"
+                href={phoneHref(content.phone)}
                 className="flex gap-3 transition hover:text-brand-secondary"
               >
                 <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-secondary" />
-                +234-913-958-0126
+                {content.phone}
               </a>
 
               <a
-                href="mailto:info@switchipl.com"
+                href={`mailto:${content.email}`}
                 className="flex gap-3 transition hover:text-brand-secondary"
               >
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand-secondary" />
-                info@switchipl.com
+                {content.email}
               </a>
 
               <div className="flex gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-secondary" />
-                <span>42, Ashiek Jarma Street, Jabi, Abuja</span>
+                <span>{content.address}</span>
               </div>
 
               <a
-                href="https://linkedin.com/company/switch-integrated"
+                href={content.linkedin}
                 target="_blank"
                 rel="noreferrer"
                 className="flex gap-3 transition hover:text-brand-secondary"
@@ -103,8 +131,8 @@ export function Footer() {
 
         <div className="flex flex-col gap-3 pt-7 text-xs text-white/45 md:flex-row md:items-center md:justify-between">
           <p>
-            © {new Date().getFullYear()} Switch Integrated. All
-            rights reserved.
+            © {new Date().getFullYear()} {content.siteName}. All rights
+            reserved.
           </p>
           <p>Built for better business communication.</p>
         </div>
