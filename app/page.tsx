@@ -28,6 +28,21 @@ type Homepage = {
   secondaryCtaText?: string;
   secondaryCtaUrl?: string;
   audiences?: string[];
+  ecosystemEyebrow?: string;
+  ecosystemTitle?: string;
+  ecosystemDescription?: string;
+  ecosystemItems?: string[];
+  audienceEyebrow?: string;
+  audienceTitle?: string;
+  audienceDescription?: string;
+  audienceCards?: string[];
+  howWeWorkEyebrow?: string;
+  howWeWorkTitle?: string;
+  howWeWorkDescription?: string;
+  howWeWorkSteps?: {
+    title?: string;
+    description?: string;
+  }[];
 };
 
 type Service = {
@@ -87,11 +102,11 @@ export default async function Home() {
       <Header />
       <HeroSection content={homepage} />
       <SolutionsSection services={services} />
-      <EcosystemSection />
-      <AudienceSection />
+      <EcosystemSection content={homepage} />
+      <AudienceSection content={homepage} />
       <AboutPreview content={aboutPage} />
       <WhySwitchSection content={whySwitchPage} />
-      <HowWeWorkSection />
+      <HowWeWorkSection content={homepage} />
       <ContactCTA settings={siteSettings} />
       <Footer settings={siteSettings} />
     </main>

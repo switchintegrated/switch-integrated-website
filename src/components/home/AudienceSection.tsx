@@ -7,12 +7,40 @@ import {
   Zap,
 } from "lucide-react";
 
-import { audiences } from "@/src/data/site";
+import { audiences as fallbackAudiences } from "@/src/data/site";
 import { Reveal } from "@/src/components/shared/Reveal";
+
+type AudienceContent = {
+  audienceEyebrow?: string;
+  audienceTitle?: string;
+  audienceDescription?: string;
+  audienceCards?: string[];
+};
 
 const audienceIcons = [Building2, Landmark, Rocket, Smartphone];
 
-export function AudienceSection() {
+const fallbackContent = {
+  audienceEyebrow: "Who We Serve",
+  audienceTitle: "Built for teams that need communication to work at scale.",
+  audienceDescription:
+    "Switch Integrated supports organisations that depend on reliable customer reach, verification, and mobile-first engagement.",
+  audienceCards: fallbackAudiences,
+};
+
+export function AudienceSection({
+  content,
+}: {
+  content?: AudienceContent | null;
+}) {
+  const audienceContent = {
+    ...fallbackContent,
+    ...content,
+    audienceCards:
+      content?.audienceCards && content.audienceCards.length > 0
+        ? content.audienceCards
+        : fallbackContent.audienceCards,
+  };
+
   return (
     <section className="relative overflow-hidden bg-white px-6 py-24 lg:px-8">
       <div className="absolute left-0 top-0 h-full w-[48%] bg-gradient-to-br from-brand-soft via-white to-white" />
@@ -23,16 +51,15 @@ export function AudienceSection() {
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.25em] text-brand-secondary">
-              Who We Serve
+              {audienceContent.audienceEyebrow}
             </p>
 
             <h2 className="mt-4 max-w-2xl font-heading text-4xl font-extrabold tracking-[-0.045em] text-brand-dark md:text-6xl">
-              Built for teams that need communication to work at scale.
+              {audienceContent.audienceTitle}
             </h2>
 
             <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-              Switch Integrated supports organisations that depend on reliable
-              customer reach, verification, and mobile-first engagement.
+              {audienceContent.audienceDescription}
             </p>
           </div>
 
@@ -74,7 +101,7 @@ export function AudienceSection() {
           <div className="absolute left-6 right-6 top-8 hidden h-px bg-gradient-to-r from-transparent via-brand-secondary/40 to-transparent lg:block" />
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {audiences.map((audience, index) => {
+            {audienceContent.audienceCards.map((audience, index) => {
               const Icon = audienceIcons[index % audienceIcons.length];
 
               return (

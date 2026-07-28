@@ -6,13 +6,44 @@ import {
   SearchCheck,
 } from "lucide-react";
 
-import { steps } from "@/src/data/site";
+import { steps as fallbackSteps } from "@/src/data/site";
 import { SectionHeader } from "@/src/components/shared/SectionHeader";
 import { Reveal } from "@/src/components/shared/Reveal";
 
+type HowWeWorkContent = {
+  howWeWorkEyebrow?: string;
+  howWeWorkTitle?: string;
+  howWeWorkDescription?: string;
+  howWeWorkSteps?: {
+    title?: string;
+    description?: string;
+  }[];
+};
+
 const stepIcons = [SearchCheck, Compass, Rocket, Handshake];
 
-export function HowWeWorkSection() {
+const fallbackContent = {
+  howWeWorkEyebrow: "How We Work",
+  howWeWorkTitle: "Getting started is simpler than you think.",
+  howWeWorkDescription:
+    "From first conversation to going live, the process is designed to be clear, collaborative, and practical.",
+  howWeWorkSteps: fallbackSteps,
+};
+
+export function HowWeWorkSection({
+  content,
+}: {
+  content?: HowWeWorkContent | null;
+}) {
+  const section = {
+    ...fallbackContent,
+    ...content,
+    howWeWorkSteps:
+      content?.howWeWorkSteps && content.howWeWorkSteps.length > 0
+        ? content.howWeWorkSteps
+        : fallbackContent.howWeWorkSteps,
+  };
+
   return (
     <section className="relative overflow-hidden bg-[#f4fcfc] px-6 py-24 lg:px-8">
       <div className="absolute left-[-10%] top-[-10%] h-96 w-96 rounded-full bg-brand-secondary/10 blur-3xl" />
@@ -20,9 +51,9 @@ export function HowWeWorkSection() {
 
       <div className="relative mx-auto max-w-7xl">
         <SectionHeader
-          eyebrow="How We Work"
-          title="Getting started is simpler than you think."
-          description="From first conversation to going live, the process is designed to be clear, collaborative, and practical."
+          eyebrow={section.howWeWorkEyebrow}
+          title={section.howWeWorkTitle}
+          description={section.howWeWorkDescription}
           centered
         />
 
@@ -30,7 +61,7 @@ export function HowWeWorkSection() {
           <div className="absolute left-[8%] right-[8%] top-10 hidden h-px bg-gradient-to-r from-transparent via-brand-secondary/50 to-transparent lg:block" />
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {steps.map((step, index) => {
+            {section.howWeWorkSteps.map((step, index) => {
               const Icon = stepIcons[index % stepIcons.length];
 
               return (
@@ -49,7 +80,7 @@ export function HowWeWorkSection() {
                             {String(index + 1).padStart(2, "0")}
                           </span>
 
-                          {index < steps.length - 1 ? (
+                          {index < section.howWeWorkSteps.length - 1 ? (
                             <ArrowRight className="hidden h-4 w-4 text-brand-secondary lg:block" />
                           ) : null}
                         </div>

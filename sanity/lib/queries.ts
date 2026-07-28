@@ -10,6 +10,18 @@ export const homepageQuery = groq`
     secondaryCtaText,
     secondaryCtaUrl,
     audiences,
+    ecosystemEyebrow,
+    ecosystemTitle,
+    ecosystemDescription,
+    ecosystemItems,
+    audienceEyebrow,
+    audienceTitle,
+    audienceDescription,
+    audienceCards,
+    howWeWorkEyebrow,
+    howWeWorkTitle,
+    howWeWorkDescription,
+    howWeWorkSteps,
     seo
   }
 `;
