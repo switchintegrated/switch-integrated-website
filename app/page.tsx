@@ -14,6 +14,7 @@ import {
   homepageQuery,
   servicesQuery,
   siteSettingsQuery,
+  whySwitchPageQuery,
 } from "@/sanity/lib/queries";
 
 export const revalidate = 60;
@@ -61,13 +62,25 @@ type AboutPage = {
   }[];
 };
 
+type WhySwitchPage = {
+  heroEyebrow?: string;
+  heroHeadline?: string;
+  heroSubheadline?: string;
+  reasons?: {
+    title?: string;
+    description?: string;
+  }[];
+};
+
 export default async function Home() {
-  const [homepage, services, siteSettings, aboutPage] = await Promise.all([
-    client.fetch<Homepage | null>(homepageQuery),
-    client.fetch<Service[]>(servicesQuery),
-    client.fetch<SiteSettings | null>(siteSettingsQuery),
-    client.fetch<AboutPage | null>(aboutPageQuery),
-  ]);
+  const [homepage, services, siteSettings, aboutPage, whySwitchPage] =
+    await Promise.all([
+      client.fetch<Homepage | null>(homepageQuery),
+      client.fetch<Service[]>(servicesQuery),
+      client.fetch<SiteSettings | null>(siteSettingsQuery),
+      client.fetch<AboutPage | null>(aboutPageQuery),
+      client.fetch<WhySwitchPage | null>(whySwitchPageQuery),
+    ]);
 
   return (
     <main className="min-h-screen bg-[#f7fbfc] text-brand-dark">
@@ -77,7 +90,7 @@ export default async function Home() {
       <EcosystemSection />
       <AudienceSection />
       <AboutPreview content={aboutPage} />
-      <WhySwitchSection />
+      <WhySwitchSection content={whySwitchPage} />
       <HowWeWorkSection />
       <ContactCTA settings={siteSettings} />
       <Footer settings={siteSettings} />

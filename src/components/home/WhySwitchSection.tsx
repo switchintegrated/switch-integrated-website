@@ -1,12 +1,48 @@
 import { CheckCircle2, ShieldCheck, Sparkles, TrendingUp } from "lucide-react";
 
-import { reasons } from "@/src/data/site";
+import { reasons as fallbackReasons } from "@/src/data/site";
 import { SectionHeader } from "@/src/components/shared/SectionHeader";
 import { Reveal } from "@/src/components/shared/Reveal";
 
+type WhySwitchContent = {
+  heroEyebrow?: string;
+  heroHeadline?: string;
+  heroSubheadline?: string;
+  reasons?: {
+    title?: string;
+    description?: string;
+  }[];
+};
+
 const iconList = [ShieldCheck, TrendingUp, Sparkles, CheckCircle2];
 
-export function WhySwitchSection() {
+const fallbackContent: Required<Omit<WhySwitchContent, "reasons">> & {
+  reasons: {
+    title: string;
+    description: string;
+  }[];
+} = {
+  heroEyebrow: "Why Switch",
+  heroHeadline: "A partner built for trust, scale, and business growth.",
+  heroSubheadline:
+    "Switch Integrated combines reliable communication infrastructure with strategic support, helping businesses connect with customers more clearly and confidently.",
+  reasons: fallbackReasons,
+};
+
+export function WhySwitchSection({
+  content,
+}: {
+  content?: WhySwitchContent | null;
+}) {
+  const whySwitch = {
+    ...fallbackContent,
+    ...content,
+    reasons:
+      content?.reasons && content.reasons.length > 0
+        ? content.reasons
+        : fallbackContent.reasons,
+  };
+
   return (
     <section className="relative overflow-hidden bg-white px-6 py-24 lg:px-8">
       <div className="absolute left-[-10%] top-[10%] h-96 w-96 rounded-full bg-brand-secondary/10 blur-3xl" />
@@ -16,14 +52,12 @@ export function WhySwitchSection() {
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div className="lg:sticky lg:top-28">
             <SectionHeader
-              eyebrow="Why Switch"
-              title="A partner built for trust, scale, and business growth."
-              description="Switch Integrated combines reliable communication infrastructure with strategic support, helping businesses connect with customers more clearly and confidently."
+              eyebrow={whySwitch.heroEyebrow}
+              title={whySwitch.heroHeadline}
+              description={whySwitch.heroSubheadline}
             />
 
             <div className="mt-10 overflow-hidden rounded-[2rem] bg-brand-primary p-6 text-white shadow-2xl shadow-brand-primary/20">
-              <div className="absolute" />
-
               <p className="font-heading text-3xl font-extrabold tracking-[-0.04em]">
                 Where businesses connect, engage, and grow.
               </p>
@@ -50,7 +84,7 @@ export function WhySwitchSection() {
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2">
-            {reasons.map((reason, index) => {
+            {whySwitch.reasons.map((reason, index) => {
               const Icon = iconList[index % iconList.length];
 
               return (

@@ -50,3 +50,14 @@ export const siteSettingsQuery = groq`
     footerText
   }
 `;
+
+
+export const whySwitchPageQuery = groq`
+  *[_type == "whySwitchPage" && _id == "whySwitchPage"][0]{
+    heroEyebrow,
+    heroHeadline,
+    heroSubheadline,
+    reasons,
+    seo
+  }
+`;
