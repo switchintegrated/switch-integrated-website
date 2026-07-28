@@ -62,5 +62,11 @@ export const homepage = defineType({
         "Startups & SMEs",
       ],
     }),
+
+    defineField({
+      name: "seo",
+      title: "SEO",
+      type: "seo",
+    }),
   ],
 });

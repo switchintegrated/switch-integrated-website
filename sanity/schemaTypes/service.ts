@@ -38,5 +38,11 @@ export const service = defineType({
       type: "number",
       initialValue: 1,
     }),
+
+    defineField({
+      name: "seo",
+      title: "SEO",
+      type: "seo",
+    }),
   ],
 });
