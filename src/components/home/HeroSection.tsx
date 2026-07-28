@@ -14,12 +14,35 @@ import {
   Sparkles,
 } from "lucide-react";
 
-const trustPoints = [
-  "Reach customers",
-  "Verify identity",
-  "Trigger journeys",
-  "Scale communication",
-];
+type HeroContent = {
+  heroEyebrow?: string;
+  heroHeadline?: string;
+  heroSubheadline?: string;
+  primaryCtaText?: string;
+  primaryCtaUrl?: string;
+  secondaryCtaText?: string;
+  secondaryCtaUrl?: string;
+  audiences?: string[];
+};
+
+const fallbackContent: Required<Omit<HeroContent, "audiences">> & {
+  audiences: string[];
+} = {
+  heroEyebrow: "Where Businesses Connect, Engage, and Grow.",
+  heroHeadline: "Connect every customer interaction in one intelligent layer.",
+  heroSubheadline:
+    "Switch Integrated helps African businesses reach, verify, and engage customers through messaging, OTP, USSD, APIs, and digital communication infrastructure.",
+  primaryCtaText: "See it in action",
+  primaryCtaUrl: "/solutions",
+  secondaryCtaText: "Start a Conversation",
+  secondaryCtaUrl: "/contact",
+  audiences: [
+    "Reach customers",
+    "Verify identity",
+    "Trigger journeys",
+    "Scale communication",
+  ],
+};
 
 const serviceQueue = [
   {
@@ -48,7 +71,16 @@ const serviceQueue = [
   },
 ];
 
-export function HeroSection() {
+export function HeroSection({ content }: { content?: HeroContent | null }) {
+  const hero = {
+    ...fallbackContent,
+    ...content,
+    audiences:
+      content?.audiences && content.audiences.length > 0
+        ? content.audiences
+        : fallbackContent.audiences,
+  };
+
   return (
     <section className="relative overflow-hidden bg-brand-dark text-white">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_22%,rgba(30,188,187,0.26),transparent_26%),radial-gradient(circle_at_18%_88%,rgba(30,188,187,0.20),transparent_34%),linear-gradient(135deg,#001f31_0%,#003852_58%,#006b78_100%)]" />
@@ -59,39 +91,37 @@ export function HeroSection() {
         <div className="relative z-20 max-w-3xl animate-[heroCopyIn_900ms_ease-out_both]">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-white/90 shadow-2xl backdrop-blur">
             <BadgeCheck className="h-4 w-4 text-brand-secondary" />
-            Where Businesses Connect, Engage, and Grow.
+            {hero.heroEyebrow}
           </div>
 
           <h1 className="max-w-3xl text-[clamp(2.75rem,4.8vw,5rem)] font-heading font-extrabold leading-[1.02] tracking-[-0.045em] text-white">
-            Connect every customer interaction in one intelligent layer.
+            {hero.heroHeadline}
           </h1>
 
           <p className="mt-6 max-w-2xl text-base leading-8 text-white/75 md:text-lg">
-            Switch Integrated helps African businesses reach, verify, and engage
-            customers through messaging, OTP, USSD, APIs, and digital
-            communication infrastructure.
+            {hero.heroSubheadline}
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">
             <Link
-              href="/solutions"
+              href={hero.primaryCtaUrl}
               className="inline-flex items-center justify-center gap-3 rounded-md bg-white px-7 py-4 text-base font-bold text-brand-dark shadow-xl transition hover:-translate-y-0.5 hover:bg-brand-soft"
             >
               <Play className="h-4 w-4 fill-brand-dark" />
-              See it in action
+              {hero.primaryCtaText}
             </Link>
 
             <Link
-              href="/contact"
+              href={hero.secondaryCtaUrl}
               className="inline-flex items-center justify-center gap-2 rounded-md border border-white/20 bg-white/10 px-7 py-4 text-base font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/15"
             >
-              Start a Conversation
+              {hero.secondaryCtaText}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
           <div className="mt-8 grid max-w-xl gap-3 sm:grid-cols-2">
-            {trustPoints.map((item) => (
+            {hero.audiences.map((item) => (
               <div
                 key={item}
                 className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/8 px-4 py-3 text-sm font-bold text-white/90 backdrop-blur"
