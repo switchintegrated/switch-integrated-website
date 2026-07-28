@@ -9,7 +9,7 @@ import { HowWeWorkSection } from "@/src/components/home/HowWeWorkSection";
 import { SolutionsSection } from "@/src/components/home/SolutionsSection";
 import { WhySwitchSection } from "@/src/components/home/WhySwitchSection";
 import { client } from "@/sanity/lib/client";
-import { homepageQuery } from "@/sanity/lib/queries";
+import { homepageQuery, servicesQuery } from "@/sanity/lib/queries";
 
 export const revalidate = 60;
 
@@ -24,14 +24,25 @@ type Homepage = {
   audiences?: string[];
 };
 
+type Service = {
+  title?: string;
+  shortDescription?: string;
+  longDescription?: string;
+  slug?: string;
+  order?: number;
+};
+
 export default async function Home() {
-  const homepage = await client.fetch<Homepage | null>(homepageQuery);
+  const [homepage, services] = await Promise.all([
+    client.fetch<Homepage | null>(homepageQuery),
+    client.fetch<Service[]>(servicesQuery),
+  ]);
 
   return (
     <main className="min-h-screen bg-[#f7fbfc] text-brand-dark">
       <Header />
       <HeroSection content={homepage} />
-      <SolutionsSection />
+      <SolutionsSection services={services} />
       <EcosystemSection />
       <AudienceSection />
       <AboutPreview />

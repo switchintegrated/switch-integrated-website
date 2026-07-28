@@ -7,9 +7,17 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-import { solutions } from "@/src/data/site";
+import { solutions as fallbackSolutions } from "@/src/data/site";
 import { SectionHeader } from "@/src/components/shared/SectionHeader";
 import { Reveal } from "@/src/components/shared/Reveal";
+
+type CmsSolution = {
+  title?: string;
+  shortDescription?: string;
+  longDescription?: string;
+  slug?: string;
+  order?: number;
+};
 
 const iconMap = {
   Messaging: MessageSquareText,
@@ -26,7 +34,27 @@ function getSolutionIcon(title: string) {
   return iconMap.Partnerships;
 }
 
-export function SolutionsSection() {
+export function SolutionsSection({
+  services,
+}: {
+  services?: CmsSolution[] | null;
+}) {
+  const visibleSolutions =
+    services && services.length > 0
+      ? services.map((service) => ({
+          title: service.title || "Untitled Solution",
+          description:
+            service.shortDescription ||
+            service.longDescription ||
+            "A Switch Integrated solution designed to support business communication and customer engagement.",
+          slug: service.slug,
+        }))
+      : fallbackSolutions.map((solution) => ({
+          title: solution.title,
+          description: solution.description,
+          slug: undefined,
+        }));
+
   return (
     <section className="relative overflow-hidden bg-[#f4fcfc] px-6 py-24 lg:px-8">
       <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-brand-secondary/10 blur-3xl" />
@@ -50,11 +78,11 @@ export function SolutionsSection() {
         </div>
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {solutions.map((solution, index) => {
+          {visibleSolutions.map((solution, index) => {
             const Icon = getSolutionIcon(solution.title);
 
             return (
-              <Reveal key={solution.title} delay={index * 120}>
+              <Reveal key={solution.slug || solution.title} delay={index * 120}>
                 <article className="group relative overflow-hidden rounded-[2rem] border border-brand-secondary/15 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-primary/10">
                   <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-primary opacity-0 transition group-hover:opacity-100" />
 

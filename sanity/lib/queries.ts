@@ -13,3 +13,14 @@ export const homepageQuery = groq`
     seo
   }
 `;
+
+export const servicesQuery = groq`
+  *[_type == "service"] | order(order asc) {
+    title,
+    shortDescription,
+    longDescription,
+    order,
+    "slug": slug.current,
+    seo
+  }
+`;
