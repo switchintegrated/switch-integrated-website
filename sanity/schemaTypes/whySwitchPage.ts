@@ -1,4 +1,4 @@
-import {defineField, defineType} from "sanity";
+import {defineArrayMember, defineField, defineType} from "sanity";
 
 export const whySwitchPage = defineType({
   name: "whySwitchPage",
@@ -14,7 +14,7 @@ export const whySwitchPage = defineType({
     defineField({
       name: "heroHeadline",
       title: "Hero Headline",
-      type: "string",
+      type: "text",
       initialValue: "What it feels like to work with the right partner.",
     }),
     defineField({
@@ -22,20 +22,59 @@ export const whySwitchPage = defineType({
       title: "Hero Subheadline",
       type: "text",
       rows: 4,
+      initialValue:
+        "Choosing a digital solutions partner is about more than capability. It’s about who shows up, how they work, and whether they’re genuinely invested in your success.",
     }),
     defineField({
       name: "reasons",
       title: "Reasons",
       type: "array",
       of: [
-        {
+        defineArrayMember({
           type: "object",
           fields: [
-            {name: "title", title: "Title", type: "string"},
-            {name: "description", title: "Description", type: "text", rows: 3},
+            defineField({
+              name: "title",
+              title: "Title",
+              type: "string",
+            }),
+            defineField({
+              name: "description",
+              title: "Description",
+              type: "text",
+              rows: 4,
+            }),
           ],
-        },
+        }),
       ],
+    }),
+    defineField({
+      name: "scaleCardTitle",
+      title: "Scale Card Title",
+      type: "string",
+      initialValue: "Built for scale",
+    }),
+    defineField({
+      name: "scaleCardDescription",
+      title: "Scale Card Description",
+      type: "text",
+      rows: 4,
+      initialValue:
+        "Whether you are running thousands of messages a day or millions, Switch Integrated is positioned as a partner that can grow with you.",
+    }),
+    defineField({
+      name: "outcomeCardTitle",
+      title: "Outcome Card Title",
+      type: "string",
+      initialValue: "We measure success by your outcomes.",
+    }),
+    defineField({
+      name: "outcomeCardDescription",
+      title: "Outcome Card Description",
+      type: "text",
+      rows: 4,
+      initialValue:
+        "Switch Integrated is positioned as a long-term partner, not just a vendor. That means every engagement should reinforce trust, clarity, responsiveness, and business growth.",
     }),
     defineField({
       name: "seo",

@@ -71,6 +71,10 @@ export const whySwitchPageQuery = groq`
     heroHeadline,
     heroSubheadline,
     reasons,
+    scaleCardTitle,
+    scaleCardDescription,
+    outcomeCardTitle,
+    outcomeCardDescription,
     seo
   }
 `;
