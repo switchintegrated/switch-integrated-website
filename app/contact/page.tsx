@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { ArrowRight, Building2, Globe2, Mail, Phone } from "lucide-react";
-
+import { ContactForm } from "@/src/components/contact/ContactForm";
+import { Building2, Globe2, Mail, Phone } from "lucide-react";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { contactPageQuery, siteSettingsQuery } from "@/sanity/lib/queries";
@@ -189,97 +189,11 @@ export default async function ContactPage() {
             </div>
           </div>
 
-          <form className="rounded-[2rem] border border-brand-secondary/15 bg-white p-8 shadow-sm">
-            <div className="grid gap-5 md:grid-cols-2">
-              <label className="block">
-                <span className="text-sm font-semibold text-slate-700">
-                  Full name
-                </span>
-                <input
-                  type="text"
-                  name="fullName"
-                  placeholder="Your name"
-                  className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-brand-secondary focus:ring-4 focus:ring-brand-secondary/10"
-                />
-              </label>
-
-              <label className="block">
-                <span className="text-sm font-semibold text-slate-700">
-                  Company name
-                </span>
-                <input
-                  type="text"
-                  name="companyName"
-                  placeholder="Your company"
-                  className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-brand-secondary focus:ring-4 focus:ring-brand-secondary/10"
-                />
-              </label>
-
-              <label className="block">
-                <span className="text-sm font-semibold text-slate-700">
-                  Email address
-                </span>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="you@company.com"
-                  className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-brand-secondary focus:ring-4 focus:ring-brand-secondary/10"
-                />
-              </label>
-
-              <label className="block">
-                <span className="text-sm font-semibold text-slate-700">
-                  Phone number
-                </span>
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="+234..."
-                  className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-brand-secondary focus:ring-4 focus:ring-brand-secondary/10"
-                />
-              </label>
-
-              <label className="block md:col-span-2">
-                <span className="text-sm font-semibold text-slate-700">
-                  Service interest
-                </span>
-                <select
-                  name="serviceInterest"
-                  className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-secondary focus:ring-4 focus:ring-brand-secondary/10"
-                  defaultValue=""
-                >
-                  <option value="" disabled>
-                    Select an option
-                  </option>
-                  {content.serviceOptions.map((service) => (
-                    <option key={service} value={service}>
-                      {service}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
-              <label className="block md:col-span-2">
-                <span className="text-sm font-semibold text-slate-700">
-                  Message
-                </span>
-                <textarea
-                  name="message"
-                  placeholder="Tell us what you’d like to discuss..."
-                  rows={6}
-                  className="mt-2 w-full resize-none rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-brand-secondary focus:ring-4 focus:ring-brand-secondary/10"
-                />
-              </label>
-            </div>
-
-            <button
-              type="submit"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand-primary px-7 py-4 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-brand-dark"
-            >
-              {content.formButtonText}
-              <ArrowRight className="h-4 w-4" />
-            </button>
-          </form>
+          <ContactForm
+            serviceOptions={content.serviceOptions}
+            buttonText={content.formButtonText}
+            successMessage={content.successMessage}
+          />
         </div>
       </section>
 
