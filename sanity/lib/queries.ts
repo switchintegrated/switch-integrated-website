@@ -121,3 +121,20 @@ export const partnershipPageQuery = groq`
     seo
   }
 `;
+
+export const contactPageQuery = groq`
+  *[_type == "contactPage" && _id == "contactPage"][0]{
+    heroEyebrow,
+    heroHeadline,
+    heroSubheadline,
+    heroImage,
+    heroImageAlt,
+    reachEyebrow,
+    reachHeadline,
+    reachDescription,
+    serviceOptions,
+    formButtonText,
+    successMessage,
+    seo
+  }
+`;
