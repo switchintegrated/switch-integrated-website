@@ -23,6 +23,7 @@ export const structure: StructureResolver = (S) =>
       singleton(S, "Website Settings", "siteSettings", "siteSettings"),
       singleton(S, "Homepage", "homepage", "homepage"),
       singleton(S, "About Page", "aboutPage", "aboutPage"),
+      singleton(S, "Solutions Page", "solutionsPage", "solutionsPage"),
       S.divider(),
       S.documentTypeListItem("service").title("Solutions / Services"),
       singleton(S, "Why Switch Page", "whySwitchPage", "whySwitchPage"),

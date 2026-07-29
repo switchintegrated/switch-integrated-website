@@ -21,6 +21,21 @@ export const service = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "iconType",
+      title: "Icon Type",
+      type: "string",
+      options: {
+        list: [
+          { title: "Messaging", value: "messaging" },
+          { title: "USSD / Mobile", value: "ussd" },
+          { title: "Infrastructure", value: "infrastructure" },
+          { title: "Partnerships", value: "partnerships" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "messaging",
+    }),
+    defineField({
       name: "shortDescription",
       title: "Short Description",
       type: "text",
@@ -38,7 +53,6 @@ export const service = defineType({
       type: "number",
       initialValue: 1,
     }),
-
     defineField({
       name: "seo",
       title: "SEO",

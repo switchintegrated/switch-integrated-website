@@ -43,6 +43,7 @@ export const aboutPageQuery = groq`
 export const servicesQuery = groq`
   *[_type == "service"] | order(order asc) {
     title,
+    iconType,
     shortDescription,
     longDescription,
     order,
@@ -70,6 +71,26 @@ export const whySwitchPageQuery = groq`
     heroHeadline,
     heroSubheadline,
     reasons,
+    seo
+  }
+`;
+
+
+export const solutionsPageQuery = groq`
+  *[_type == "solutionsPage" && _id == "solutionsPage"][0]{
+    heroEyebrow,
+    heroHeadline,
+    heroSubheadline,
+    heroImage,
+    heroImageAlt,
+    serviceCardCtaText,
+    customEyebrow,
+    customHeadline,
+    customDescription,
+    customImage,
+    customImageAlt,
+    customCtaText,
+    customCtaUrl,
     seo
   }
 `;

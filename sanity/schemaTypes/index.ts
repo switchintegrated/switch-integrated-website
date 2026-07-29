@@ -5,6 +5,7 @@ import {homepage} from "./homepage";
 import {partnershipPage} from "./partnershipPage";
 import {seo} from "./seo";
 import {service} from "./service";
+import {solutionsPage} from "./solutionsPage";
 import {siteSettings} from "./siteSettings";
 import {whySwitchPage} from "./whySwitchPage";
 
@@ -14,6 +15,7 @@ export const schema = {
     siteSettings,
     homepage,
     aboutPage,
+    solutionsPage,
     service,
     whySwitchPage,
     partnershipPage,
