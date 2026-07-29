@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 
+import { client } from "@/sanity/lib/client";
+import { aboutPageQuery, siteSettingsQuery } from "@/sanity/lib/queries";
 import { Footer } from "@/src/components/layout/Footer";
 import { Header } from "@/src/components/layout/Header";
 import {
@@ -11,34 +14,130 @@ import {
   Target,
 } from "lucide-react";
 
-const values = [
-  {
-    title: "Partnership First",
-    description:
-      "We don’t just deliver solutions, we build relationships. Every engagement begins with listening, because the best solution is always the one that actually fits what you need.",
-    icon: Handshake,
-  },
-  {
-    title: "Innovation With Purpose",
-    description:
-      "We embrace new thinking, not for its own sake, but because the right solution at the right time creates real value for the businesses and people we serve.",
-    icon: Lightbulb,
-  },
-  {
-    title: "Candour",
-    description:
-      "We say what we mean and mean what we say. With Switch Integrated, there are no hidden agendas, just honest conversation, clear expectations, and follow-through you can count on.",
-    icon: MessageCircle,
-  },
-  {
-    title: "Growth, Together",
-    description:
-      "We grow when our clients grow. That alignment drives everything, from how we build our solutions to how we show up for our partners every single day.",
-    icon: CheckCircle2,
-  },
-];
+export const revalidate = 60;
 
-export default function AboutPage() {
+type Seo = {
+  title?: string;
+  description?: string;
+};
+
+type AboutPageContent = {
+  heroEyebrow?: string;
+  heroHeadline?: string;
+  heroSubheadline?: string;
+  storyTitle?: string;
+  storyBody?: string;
+  vision?: string;
+  mission?: string;
+  values?: {
+    title?: string;
+    description?: string;
+  }[];
+  seo?: Seo;
+};
+
+type SiteSettings = {
+  siteName?: string;
+  tagline?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  linkedin?: string;
+  footerText?: string;
+};
+
+const valueIcons = [Handshake, Lightbulb, MessageCircle, CheckCircle2];
+
+const fallbackAbout: Required<Omit<AboutPageContent, "values" | "seo">> & {
+  values: {
+    title: string;
+    description: string;
+  }[];
+  seo: Seo;
+} = {
+  heroEyebrow: "About Switch Integrated",
+  heroHeadline:
+    "Africa’s businesses deserve communication infrastructure that actually works for them.",
+  heroSubheadline:
+    "Switch Integrated is a Nigerian-based digital solutions and customer engagement company working at the crossroads of mobile technology, digital infrastructure, and customer experience.",
+  storyTitle: "Built to help businesses reach, serve, and grow.",
+  storyBody:
+    "Our focus is simple: helping organisations across Africa reach their customers reliably, communicate at scale, and build the kind of digital engagement that drives real growth.",
+  vision:
+    "To be the trusted digital solutions partner that African businesses turn to as they build, connect, and grow, today and into the future.",
+  mission:
+    "To deliver reliable, innovative digital solutions and customer engagement technology that helps businesses across Africa communicate better, serve their customers more effectively, and thrive in a rapidly evolving digital economy.",
+  values: [
+    {
+      title: "Partnership First",
+      description:
+        "We don’t just deliver solutions, we build relationships. Every engagement begins with listening, because the best solution is always the one that actually fits what you need.",
+    },
+    {
+      title: "Innovation With Purpose",
+      description:
+        "We embrace new thinking, not for its own sake, but because the right solution at the right time creates real value for the businesses and people we serve.",
+    },
+    {
+      title: "Candour",
+      description:
+        "We say what we mean and mean what we say. With Switch Integrated, there are no hidden agendas, just honest conversation, clear expectations, and follow-through you can count on.",
+    },
+    {
+      title: "Growth, Together",
+      description:
+        "We grow when our clients grow. That alignment drives everything, from how we build our solutions to how we show up for our partners every single day.",
+    },
+  ],
+  seo: {
+    title: "About Switch Integrated | African Digital Solutions Partner",
+    description:
+      "Learn about Switch Integrated, a digital solutions and customer engagement partner helping African businesses communicate, engage, and grow.",
+  },
+};
+
+function mergeAbout(content?: AboutPageContent | null) {
+  return {
+    ...fallbackAbout,
+    ...content,
+    values:
+      content?.values && content.values.length > 0
+        ? content.values
+        : fallbackAbout.values,
+    seo: {
+      ...fallbackAbout.seo,
+      ...content?.seo,
+    },
+  };
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const aboutPage = await client.fetch<AboutPageContent | null>(aboutPageQuery);
+  const about = mergeAbout(aboutPage);
+
+  return {
+    title: about.seo.title,
+    description: about.seo.description,
+    openGraph: {
+      title: about.seo.title,
+      description: about.seo.description,
+      type: "website",
+    },
+  };
+}
+
+export default async function AboutPage() {
+  const [aboutPage, siteSettings] = await Promise.all([
+    client.fetch<AboutPageContent | null>(aboutPageQuery),
+    client.fetch<SiteSettings | null>(siteSettingsQuery),
+  ]);
+
+  const about = mergeAbout(aboutPage);
+  const storyParagraphs = about.storyBody
+    .split("\n")
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+
   return (
     <main className="min-h-screen bg-[#f7fbfc] text-brand-dark">
       <Header />
@@ -50,16 +149,13 @@ export default function AboutPage() {
         <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div>
             <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-primary">
-              About Switch Integrated
+              {about.heroEyebrow}
             </p>
             <h1 className="mt-5 font-heading text-5xl font-extrabold tracking-[-0.045em] md:text-6xl">
-              Africa’s businesses deserve communication infrastructure that
-              actually works for them.
+              {about.heroHeadline}
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
-              Switch Integrated is a Nigerian-based digital solutions and customer
-              engagement company working at the crossroads of mobile technology,
-              digital infrastructure, and customer experience.
+              {about.heroSubheadline}
             </p>
           </div>
 
@@ -105,28 +201,14 @@ export default function AboutPage() {
               Our Story
             </p>
             <h2 className="mt-4 font-heading text-4xl font-extrabold tracking-[-0.035em]">
-              Built to help businesses reach, serve, and grow.
+              {about.storyTitle}
             </h2>
           </div>
 
           <div className="space-y-6 rounded-[2rem] border border-brand-secondary/15 bg-white p-8 text-lg leading-8 text-slate-600 shadow-sm">
-            <p>
-              Our focus is simple: helping organisations across Africa reach
-              their customers reliably, communicate at scale, and build the kind
-              of digital engagement that drives real growth.
-            </p>
-            <p>
-              Our roots are deep in the digital communication and value-added
-              services industry, a space we know intimately. But we have always
-              believed the opportunity is bigger than any single category.
-            </p>
-            <p>
-              Today, Switch Integrated is building toward a broader vision: a
-              full-service digital solutions company supporting Africa’s
-              enterprises, fintechs, brands, and service providers with
-              solutions designed for a mobile-first, digitally connected
-              continent.
-            </p>
+            {storyParagraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </div>
         </div>
       </section>
@@ -141,9 +223,7 @@ export default function AboutPage() {
               Our Vision
             </h2>
             <p className="mt-4 text-lg leading-8 text-slate-600">
-              To be the trusted digital solutions partner that African
-              businesses turn to as they build, connect, and grow, today and
-              into the future.
+              {about.vision}
             </p>
           </div>
 
@@ -155,10 +235,7 @@ export default function AboutPage() {
               Our Mission
             </h2>
             <p className="mt-4 text-lg leading-8 text-slate-600">
-              To deliver reliable, innovative digital solutions and customer
-              engagement technology that helps businesses across Africa
-              communicate better, serve their customers more effectively, and
-              thrive in a rapidly evolving digital economy.
+              {about.mission}
             </p>
           </div>
         </div>
@@ -180,8 +257,8 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-14 grid gap-6 md:grid-cols-2">
-            {values.map((value) => {
-              const Icon = value.icon;
+            {about.values.map((value, index) => {
+              const Icon = valueIcons[index % valueIcons.length];
 
               return (
                 <article
@@ -207,7 +284,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Footer />
+      <Footer settings={siteSettings} />
     </main>
   );
 }
