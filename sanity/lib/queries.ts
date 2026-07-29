@@ -98,3 +98,26 @@ export const solutionsPageQuery = groq`
     seo
   }
 `;
+
+export const partnershipPageQuery = groq`
+  *[_type == "partnershipPage" && _id == "partnershipPage"][0]{
+    heroEyebrow,
+    heroHeadline,
+    heroSubheadline,
+    heroImage,
+    heroImageAlt,
+    partnerEyebrow,
+    partnerHeadline,
+    partnerBody,
+    audienceEyebrow,
+    audienceHeadline,
+    partnerTypes,
+    ctaHeadline,
+    ctaDescription,
+    ctaButtonText,
+    ctaButtonUrl,
+    ctaImage,
+    ctaImageAlt,
+    seo
+  }
+`;

@@ -1,8 +1,6 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-
-import { Footer } from "@/src/components/layout/Footer";
-import { Header } from "@/src/components/layout/Header";
 import {
   ArrowRight,
   Building2,
@@ -12,34 +10,152 @@ import {
   UsersRound,
 } from "lucide-react";
 
-const partnerTypes = [
-  {
-    title: "Enterprises & Large Brands",
-    description:
-      "For organisations that need reliable communication, customer engagement, verification, and infrastructure support at scale.",
-    icon: Building2,
-  },
-  {
-    title: "Fintechs & Financial Institutions",
-    description:
-      "For businesses that need secure messaging, OTP verification, transaction alerts, and dependable customer communication.",
-    icon: Landmark,
-  },
-  {
-    title: "Telecom & Technology Partners",
-    description:
-      "For operators and technology partners looking to collaborate on mobile-first communication solutions and integrations.",
-    icon: UsersRound,
-  },
-  {
-    title: "Startups & Growing Businesses",
-    description:
-      "For ambitious teams building on solid foundations and looking for a communication partner that can grow with them.",
-    icon: Rocket,
-  },
-];
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+import { partnershipPageQuery, siteSettingsQuery } from "@/sanity/lib/queries";
+import { Footer } from "@/src/components/layout/Footer";
+import { Header } from "@/src/components/layout/Header";
 
-export default function PartnershipPage() {
+export const revalidate = 60;
+
+type Seo = {
+  title?: string;
+  description?: string;
+};
+
+type PartnerType = {
+  title?: string;
+  description?: string;
+};
+
+type PartnershipPageContent = {
+  heroEyebrow?: string;
+  heroHeadline?: string;
+  heroSubheadline?: string;
+  heroImage?: unknown;
+  heroImageAlt?: string;
+  partnerEyebrow?: string;
+  partnerHeadline?: string;
+  partnerBody?: string;
+  audienceEyebrow?: string;
+  audienceHeadline?: string;
+  partnerTypes?: PartnerType[];
+  ctaHeadline?: string;
+  ctaDescription?: string;
+  ctaButtonText?: string;
+  ctaButtonUrl?: string;
+  ctaImage?: unknown;
+  ctaImageAlt?: string;
+  seo?: Seo;
+};
+
+type SiteSettings = {
+  siteName?: string;
+  tagline?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  linkedin?: string;
+  footerText?: string;
+};
+
+const partnerIcons = [Building2, Landmark, UsersRound, Rocket];
+
+const fallbackPage = {
+  heroEyebrow: "Partnership",
+  heroHeadline: "Let’s build something that lasts.",
+  heroSubheadline:
+    "Africa’s digital future will be built through intentional collaboration between enterprises, fintechs, technology innovators, operators, and service providers who are willing to grow together.",
+  heroImageAlt:
+    "Abstract partnership bridge connecting business and technology organisations",
+  partnerEyebrow: "How We Partner",
+  partnerHeadline: "Relationships before transactions.",
+  partnerBody:
+    "Switch Integrated is committed to building the kind of partnerships shaped by shared vision, mutual investment, and a genuine belief that what we build together will matter.\n\nWe are not looking for one-off transactions. We work with businesses and partners that want reliable communication systems, practical digital solutions, and long-term growth across African markets.",
+  audienceEyebrow: "Who We Work With",
+  audienceHeadline:
+    "Built for organisations ready to connect, engage, and grow.",
+  partnerTypes: [
+    {
+      title: "Enterprises & Large Brands",
+      description:
+        "For organisations that need reliable communication, customer engagement, verification, and infrastructure support at scale.",
+    },
+    {
+      title: "Fintechs & Financial Institutions",
+      description:
+        "For businesses that need secure messaging, OTP verification, transaction alerts, and dependable customer communication.",
+    },
+    {
+      title: "Telecom & Technology Partners",
+      description:
+        "For operators and technology partners looking to collaborate on mobile-first communication solutions and integrations.",
+    },
+    {
+      title: "Startups & Growing Businesses",
+      description:
+        "For ambitious teams building on solid foundations and looking for a communication partner that can grow with them.",
+    },
+  ],
+  ctaHeadline: "Ready to start a conversation?",
+  ctaDescription:
+    "If you are a business looking for a reliable communication partner, a fintech scaling your digital infrastructure, or a startup ready to build on solid foundations, Switch Integrated would love to start a conversation.",
+  ctaButtonText: "Let’s Build Together",
+  ctaButtonUrl: "/contact",
+  ctaImageAlt: "Partnership bridge visual",
+  seo: {
+    title: "Partnership | Switch Integrated",
+    description:
+      "Partner with Switch Integrated to build scalable communication, customer engagement, verification, and mobile infrastructure solutions.",
+  },
+};
+
+function mergePage(content?: PartnershipPageContent | null) {
+  return {
+    ...fallbackPage,
+    ...content,
+    partnerTypes:
+      content?.partnerTypes && content.partnerTypes.length > 0
+        ? content.partnerTypes
+        : fallbackPage.partnerTypes,
+    seo: {
+      ...fallbackPage.seo,
+      ...content?.seo,
+    },
+  };
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await client.fetch<PartnershipPageContent | null>(
+    partnershipPageQuery,
+  );
+  const content = mergePage(page);
+
+  return {
+    title: content.seo.title,
+    description: content.seo.description,
+    openGraph: {
+      title: content.seo.title,
+      description: content.seo.description,
+      type: "website",
+    },
+  };
+}
+
+export default async function PartnershipPage() {
+  const [page, siteSettings] = await Promise.all([
+    client.fetch<PartnershipPageContent | null>(partnershipPageQuery),
+    client.fetch<SiteSettings | null>(siteSettingsQuery),
+  ]);
+
+  const content = mergePage(page);
+  const heroImageSrc = content.heroImage
+    ? urlFor(content.heroImage).width(1600).height(1000).url()
+    : "/images/switch-partnership-bridge.png";
+  const ctaImageSrc = content.ctaImage
+    ? urlFor(content.ctaImage).width(1600).height(1000).url()
+    : "/images/switch-partnership-bridge.png";
+
   return (
     <main className="min-h-screen bg-[#f7fbfc] text-brand-dark">
       <Header />
@@ -51,22 +167,20 @@ export default function PartnershipPage() {
         <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div>
             <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-primary">
-              Partnership
+              {content.heroEyebrow}
             </p>
             <h1 className="mt-5 font-heading text-5xl font-extrabold tracking-[-0.04em] md:text-6xl">
-              Let’s build something that lasts.
+              {content.heroHeadline}
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
-              Africa’s digital future will be built through intentional
-              collaboration between enterprises, fintechs, technology innovators,
-              operators, and service providers who are willing to grow together.
+              {content.heroSubheadline}
             </p>
           </div>
 
           <div className="relative overflow-hidden rounded-[2.5rem] border border-brand-secondary/20 bg-white p-3 shadow-2xl shadow-brand-primary/15">
             <Image
-              src="/images/switch-partnership-bridge.png"
-              alt="Abstract partnership bridge connecting business and technology organisations"
+              src={heroImageSrc}
+              alt={content.heroImageAlt || fallbackPage.heroImageAlt}
               width={1600}
               height={1000}
               className="h-[430px] w-full rounded-[2rem] object-cover"
@@ -80,25 +194,17 @@ export default function PartnershipPage() {
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-primary">
-              How We Partner
+              {content.partnerEyebrow}
             </p>
             <h2 className="mt-4 font-heading text-4xl font-extrabold tracking-[-0.035em]">
-              Relationships before transactions.
+              {content.partnerHeadline}
             </h2>
           </div>
 
           <div className="space-y-6 rounded-[2rem] border border-brand-secondary/15 bg-white p-8 text-lg leading-8 text-slate-600 shadow-sm">
-            <p>
-              Switch Integrated is committed to building the kind of
-              partnerships shaped by shared vision, mutual investment, and a
-              genuine belief that what we build together will matter.
-            </p>
-            <p>
-              We are not looking for one-off transactions. We work with
-              businesses and partners that want reliable communication systems,
-              practical digital solutions, and long-term growth across African
-              markets.
-            </p>
+            {content.partnerBody.split("\n\n").map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </div>
         </div>
       </section>
@@ -107,16 +213,16 @@ export default function PartnershipPage() {
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl">
             <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-primary">
-              Who We Work With
+              {content.audienceEyebrow}
             </p>
             <h2 className="mt-4 font-heading text-4xl font-extrabold tracking-[-0.035em] md:text-5xl">
-              Built for organisations ready to connect, engage, and grow.
+              {content.audienceHeadline}
             </h2>
           </div>
 
           <div className="mt-14 grid gap-6 md:grid-cols-2">
-            {partnerTypes.map((partner) => {
-              const Icon = partner.icon;
+            {content.partnerTypes.map((partner, index) => {
+              const Icon = partnerIcons[index % partnerIcons.length];
 
               return (
                 <article
@@ -147,28 +253,25 @@ export default function PartnershipPage() {
           <div className="p-8 md:p-14">
             <Handshake className="h-10 w-10 text-brand-secondary" />
             <h2 className="mt-8 max-w-3xl font-heading text-4xl font-extrabold tracking-[-0.035em] md:text-5xl">
-              Ready to start a conversation?
+              {content.ctaHeadline}
             </h2>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-              If you are a business looking for a reliable communication partner,
-              a fintech scaling your digital infrastructure, or a startup ready to
-              build on solid foundations, Switch Integrated would love to start a
-              conversation.
+              {content.ctaDescription}
             </p>
 
             <Link
-              href="/contact"
+              href={content.ctaButtonUrl}
               className="mt-10 inline-flex items-center gap-2 rounded-full bg-brand-secondary px-7 py-4 text-sm font-bold text-brand-dark transition hover:-translate-y-0.5 hover:bg-white"
             >
-              Let’s Build Together
+              {content.ctaButtonText}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
           <div className="relative min-h-[320px] bg-brand-dark/20 p-5">
             <Image
-              src="/images/switch-partnership-bridge.png"
-              alt="Partnership bridge visual"
+              src={ctaImageSrc}
+              alt={content.ctaImageAlt || fallbackPage.ctaImageAlt}
               width={1600}
               height={1000}
               className="h-full min-h-[320px] w-full rounded-[2rem] object-cover opacity-95"
@@ -177,7 +280,7 @@ export default function PartnershipPage() {
         </div>
       </section>
 
-      <Footer />
+      <Footer settings={siteSettings} />
     </main>
   );
 }
