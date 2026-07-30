@@ -52,7 +52,7 @@ export const whySwitchPage = defineType({
       name: "scaleCardTitle",
       title: "Scale Card Title",
       type: "string",
-      initialValue: "Built for scale",
+      initialValue: "We’re Built for Your Scale",
     }),
     defineField({
       name: "scaleCardDescription",
@@ -66,7 +66,7 @@ export const whySwitchPage = defineType({
       name: "outcomeCardTitle",
       title: "Outcome Card Title",
       type: "string",
-      initialValue: "We measure success by your outcomes.",
+      initialValue: "We’re Genuinely Invested in Your Outcomes",
     }),
     defineField({
       name: "outcomeCardDescription",

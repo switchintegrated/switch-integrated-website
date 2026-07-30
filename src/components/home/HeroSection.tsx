@@ -34,12 +34,12 @@ const fallbackContent: Required<Omit<HeroContent, "audiences">> & {
   audiences: HeroAudience[];
 } = {
   heroEyebrow: "Where Businesses Connect, Engage, and Grow.",
-  heroHeadline: "Connect every customer interaction in one intelligent layer.",
+  heroHeadline: "Helping African Businesses Reach, Verify, and Engage Their Customers Reliably.",
   heroSubheadline:
-    "Switch Integrated helps African businesses reach, verify, and engage customers through messaging, OTP, USSD, APIs, and digital communication infrastructure.",
-  primaryCtaText: "See it in action",
+    "Switch Integrated helps Nigerian and African businesses reach, verify, and engage their customers through enterprise messaging, OTP, USSD, mobile engagement tools, and digital communication infrastructure.",
+  primaryCtaText: "Explore Our Solutions",
   primaryCtaUrl: "/solutions",
-  secondaryCtaText: "Start a Conversation",
+  secondaryCtaText: "Let’s Talk",
   secondaryCtaUrl: "/contact",
   audiences: [
     "Reach customers",

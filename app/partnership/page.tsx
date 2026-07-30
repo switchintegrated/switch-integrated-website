@@ -151,10 +151,10 @@ export default async function PartnershipPage() {
   const content = mergePage(page);
   const heroImageSrc = content.heroImage
     ? urlFor(content.heroImage).width(1600).height(1000).url()
-    : "/images/switch-partnership-bridge.png";
+    : "/images/partnership-strategy-meeting.webp";
   const ctaImageSrc = content.ctaImage
     ? urlFor(content.ctaImage).width(1600).height(1000).url()
-    : "/images/switch-partnership-bridge.png";
+    : "/images/partnership-strategy-meeting.webp";
 
   return (
     <main className="min-h-screen bg-[#f7fbfc] text-brand-dark">

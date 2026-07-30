@@ -111,6 +111,57 @@ function mergeAbout(content?: AboutPageContent | null) {
   };
 }
 
+
+function getStorySections(storyBody: string) {
+  const paragraphs = storyBody
+    .split("\n")
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+
+  return [
+    {
+      eyebrow: "Built on belief",
+      title: "Communication infrastructure should work for African businesses.",
+      body: paragraphs[0] || "",
+      image: "/images/africa-digital-skyline.webp",
+      alt: "African skyline representing digital communication opportunity",
+      crop: "object-center",
+    },
+    {
+      eyebrow: "Who we are",
+      title: "A Nigerian-based digital solutions partner.",
+      body: paragraphs[1] || "",
+      image: "/images/about-leadership-team.webp",
+      alt: "Business leadership team reviewing digital strategy",
+      crop: "object-center",
+    },
+    {
+      eyebrow: "Our roots",
+      title: "Deep experience in mobile and digital communication.",
+      body: paragraphs[2] || "",
+      image: "/images/infrastructure-digital-network.webp",
+      alt: "Digital network infrastructure representing communication systems",
+      crop: "object-center",
+    },
+    {
+      eyebrow: "What we bring",
+      title: "Almost a decade of hands-on market knowledge.",
+      body: paragraphs[3] || "",
+      image: "/images/about-office-collaboration.webp",
+      alt: "Office team collaborating on business strategy",
+      crop: "object-center",
+    },
+    {
+      eyebrow: "How we work",
+      title: "Partners invested in long-term outcomes.",
+      body: paragraphs[4] || "",
+      image: "/images/about-mobile-user.webp",
+      alt: "Business user checking mobile communication on a smartphone",
+      crop: "object-[center_35%]",
+    },
+  ].filter((section) => section.body);
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const aboutPage = await client.fetch<AboutPageContent | null>(aboutPageQuery);
   const about = mergeAbout(aboutPage);
@@ -133,10 +184,7 @@ export default async function AboutPage() {
   ]);
 
   const about = mergeAbout(aboutPage);
-  const storyParagraphs = about.storyBody
-    .split("\n")
-    .map((paragraph) => paragraph.trim())
-    .filter(Boolean);
+  const storySections = getStorySections(about.storyBody);
 
   return (
     <main className="min-h-screen bg-[#f7fbfc] text-brand-dark">
@@ -165,7 +213,7 @@ export default async function AboutPage() {
 
             <div className="relative overflow-hidden rounded-[2.5rem] border border-brand-secondary/20 bg-white p-3 shadow-2xl shadow-brand-primary/15">
               <Image
-                src="/images/switch-home-about-crop.jpg"
+                src="/images/about-team-strategy.webp"
                 alt="Business professionals discussing digital communication strategy on a laptop"
                 width={1803}
                 height={1002}
@@ -194,20 +242,56 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="px-6 py-20 lg:px-8">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-          <div>
+      <section className="px-6 py-24 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-3xl">
             <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-primary">
               Our Story
             </p>
-            <h2 className="mt-4 font-heading text-4xl font-extrabold tracking-[-0.035em]">
+            <h2 className="mt-4 font-heading text-4xl font-extrabold tracking-[-0.035em] md:text-5xl">
               {about.storyTitle}
             </h2>
+            <p className="mt-5 text-lg leading-8 text-slate-600">
+              A clearer look at the belief, experience, and partnership mindset
+              behind Switch Integrated.
+            </p>
           </div>
 
-          <div className="space-y-6 rounded-[2rem] border border-brand-secondary/15 bg-white p-8 text-lg leading-8 text-slate-600 shadow-sm">
-            {storyParagraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
+          <div className="mt-14 space-y-8">
+            {storySections.map((section, index) => (
+              <article
+                key={section.title}
+                className={`grid overflow-hidden rounded-[2.25rem] border border-brand-secondary/15 bg-white shadow-sm lg:grid-cols-[0.9fr_1.1fr] ${
+                  index % 2 === 1 ? "lg:grid-cols-[1.1fr_0.9fr]" : ""
+                }`}
+              >
+                <div
+                  className={`relative h-[280px] lg:h-[380px] ${
+                    index % 2 === 1 ? "lg:order-2" : ""
+                  }`}
+                >
+                  <Image
+                    src={section.image}
+                    alt={section.alt}
+                    width={1600}
+                    height={1000}
+                    className={`h-full w-full object-cover ${section.crop}`}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/35 via-transparent to-transparent" />
+                </div>
+
+                <div className="flex flex-col justify-center p-7 md:p-10 lg:p-12">
+                  <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-primary">
+                    {section.eyebrow}
+                  </p>
+                  <h3 className="mt-4 font-heading text-3xl font-extrabold tracking-[-0.035em] md:text-4xl">
+                    {section.title}
+                  </h3>
+                  <p className="mt-5 text-base leading-8 text-slate-600 md:text-lg">
+                    {section.body}
+                  </p>
+                </div>
+              </article>
             ))}
           </div>
         </div>

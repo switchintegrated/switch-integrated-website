@@ -122,13 +122,55 @@ export const homepage = defineType({
       name: "audienceCards",
       title: "Audience Cards",
       type: "array",
-      of: [defineArrayMember({ type: "string" })],
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              title: "Title",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "description",
+              title: "Description",
+              type: "text",
+              rows: 2,
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: {
+              title: "title",
+              subtitle: "description",
+            },
+          },
+        }),
+      ],
       initialValue: [
-        "Enterprises",
-        "Fintechs",
-        "Financial Institutions",
-        "Telecom Operators",
-        "Startups & SMEs",
+        {
+          title: "Enterprises & Large Brands",
+          description: "Reliable, high-volume communication at scale",
+        },
+        {
+          title: "Fintechs",
+          description: "Security, OTP verification, and a trusted delivery partner",
+        },
+        {
+          title: "Financial Institutions",
+          description:
+            "Dependable messaging infrastructure for customer-critical operations",
+        },
+        {
+          title: "Telecom Operators",
+          description:
+            "Integration capability and a shared vision for Africa’s digital future",
+        },
+        {
+          title: "Startups & SMEs",
+          description: "Flexible solutions that grow with your business",
+        },
       ],
     }),
 

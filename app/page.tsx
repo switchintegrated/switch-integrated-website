@@ -69,7 +69,13 @@ type Homepage = {
   audienceEyebrow?: string;
   audienceTitle?: string;
   audienceDescription?: string;
-  audienceCards?: string[];
+  audienceCards?: (
+    | string
+    | {
+        title?: string;
+        description?: string;
+      }
+  )[];
   howWeWorkEyebrow?: string;
   howWeWorkTitle?: string;
   howWeWorkDescription?: string;

@@ -134,7 +134,7 @@ function imageUrl(image?: SanityImage, fallback?: string) {
     return urlFor(image).width(1600).height(1000).fit("crop").url();
   }
 
-  return fallback || "/images/switch-solutions-technology.png";
+  return fallback || "/images/solutions-otp-verification.webp";
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -164,11 +164,11 @@ export default async function SolutionsPage() {
   const content = mergePage(page);
   const heroImageSrc = imageUrl(
     content.heroImage,
-    "/images/switch-solutions-technology.png",
+    "/images/solutions-otp-verification.webp",
   );
   const customImageSrc = imageUrl(
     content.customImage,
-    "/images/switch-solutions-technology.png",
+    "/images/switch-solutions-custom-requirements.webp",
   );
 
   return (

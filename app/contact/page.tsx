@@ -107,7 +107,7 @@ export default async function ContactPage() {
 
   const heroImageSrc = content.heroImage
     ? urlFor(content.heroImage).width(1600).height(1000).url()
-    : "/images/switch-contact-signal.png";
+    : "/images/contact-customer-support.webp";
 
   return (
     <main className="min-h-screen bg-[#f7fbfc] text-brand-dark">

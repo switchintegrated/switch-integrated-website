@@ -119,7 +119,7 @@ export function AboutPreview({
           <div className="relative overflow-hidden rounded-[2.5rem] border border-brand-secondary/15 bg-brand-soft p-3 shadow-2xl shadow-brand-primary/15">
             <div className="relative overflow-hidden rounded-[2rem]">
               <Image
-                src="/images/switch-home-about-crop.jpg"
+                src="/images/about-team-strategy.webp"
                 alt="African business professionals discussing digital communication strategy on a laptop"
                 width={1803}
                 height={1002}
