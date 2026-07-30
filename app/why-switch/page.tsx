@@ -3,8 +3,8 @@ import {
   CheckCircle2,
   Globe2,
   PlugZap,
-  Scale,
   ShieldCheck,
+  Sparkles,
 } from "lucide-react";
 
 import { client } from "@/sanity/lib/client";
@@ -27,10 +27,6 @@ type WhySwitchPageContent = {
     title?: string;
     description?: string;
   }[];
-  scaleCardTitle?: string;
-  scaleCardDescription?: string;
-  outcomeCardTitle?: string;
-  outcomeCardDescription?: string;
   seo?: Seo;
 };
 
@@ -44,56 +40,44 @@ type SiteSettings = {
   footerText?: string;
 };
 
-const reasonIcons = [ShieldCheck, Globe2, PlugZap, CheckCircle2];
+const reasonIcons = [ShieldCheck, Sparkles, Globe2, PlugZap, CheckCircle2];
 
-const fallbackPage: Required<Omit<WhySwitchPageContent, "reasons" | "seo">> & {
-  reasons: {
-    title: string;
-    description: string;
-  }[];
-  seo: Seo;
-} = {
+const fallbackPage = {
   heroEyebrow: "Why Switch Integrated",
-  heroHeadline: "What it feels like to work with the right partner.",
+  heroHeadline: "What It Feels Like to Work With the Right Partner.",
   heroSubheadline:
-    "Choosing a digital solutions partner is about more than capability. It’s about who shows up, how they work, and whether they’re genuinely invested in your success.",
+    "Choosing a digital solutions partner is about more than capability. It’s about who shows up, how they work, and whether they’re genuinely invested in your success. Here’s what working with Switch Integrated looks like.",
   reasons: [
     {
       title: "We Know This Space Deeply",
       description:
-        "We understand the communication, engagement, and infrastructure realities African businesses face.",
+        "Digital communication in Africa has its own rhythms, its own challenges, and its own rules. We’ve operated in this space long enough to understand what works, what doesn’t, and how to navigate the complexity, so you don’t have to.",
     },
     {
       title: "We’re Built for Your Scale",
       description:
-        "Our solutions are designed to support growing businesses, established enterprises, and high-volume communication needs.",
+        "Whether you’re running thousands of messages a day or millions, our solutions flex with you. We build for where you are now and where you’re going, not just the immediate need.",
     },
     {
       title: "We Think Continentally",
       description:
-        "We build with Africa’s wider business and communication landscape in mind.",
+        "Our vision isn’t limited to one market. As Africa’s digital economy grows, we’re growing with it — and we bring that pan-African perspective to every client relationship.",
     },
     {
       title: "We Make Integration Straightforward",
       description:
-        "We focus on practical implementation, clear processes, and solutions that are easy to adopt.",
+        "New technology should solve problems, not create them. We’re committed to making onboarding, integration, and day-to-day operations as smooth and simple as possible.",
     },
     {
       title: "We’re Genuinely Invested in Your Outcomes",
       description:
-        "We approach every engagement as a long-term partnership, not just a one-time service delivery.",
+        "We measure our success by yours. That’s not a marketing line, it’s the philosophy that shapes how we engage with every partner, from first conversation to long-term delivery.",
     },
   ],
-  scaleCardTitle: "Built for scale",
-  scaleCardDescription:
-    "Whether you are running thousands of messages a day or millions, Switch Integrated is positioned as a partner that can grow with you.",
-  outcomeCardTitle: "We measure success by your outcomes.",
-  outcomeCardDescription:
-    "Switch Integrated is positioned as a long-term partner, not just a vendor. That means every engagement should reinforce trust, clarity, responsiveness, and business growth.",
   seo: {
-    title: "Why Switch Integrated | Reliable Communication Infrastructure",
+    title: "Why Switch Integrated | Your Digital Communication Partner in Africa",
     description:
-      "See why businesses choose Switch Integrated for scalable messaging, verification, USSD, APIs, and customer engagement solutions.",
+      "Discover why African enterprises, fintechs, and growing businesses choose Switch Integrated as their digital communication and customer engagement partner.",
   },
 };
 
@@ -147,7 +131,7 @@ export default async function WhySwitchPage() {
             {content.heroEyebrow}
           </p>
 
-          <h1 className="mt-5 text-5xl font-semibold tracking-tight md:text-6xl">
+          <h1 className="mt-5 font-heading text-5xl font-extrabold tracking-[-0.04em] md:text-6xl">
             {content.heroHeadline}
           </h1>
 
@@ -159,7 +143,7 @@ export default async function WhySwitchPage() {
 
       <section className="px-6 py-20 lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {content.reasons.map((reason, index) => {
+          {content.reasons.slice(0, 5).map((reason, index) => {
             const Icon = reasonIcons[index % reasonIcons.length];
 
             return (
@@ -171,7 +155,9 @@ export default async function WhySwitchPage() {
                   <Icon className="h-6 w-6" />
                 </div>
 
-                <h2 className="mt-7 text-2xl font-semibold">{reason.title}</h2>
+                <h2 className="mt-7 font-heading text-2xl font-extrabold">
+                  {reason.title}
+                </h2>
 
                 <p className="mt-4 leading-7 text-slate-600">
                   {reason.description}
@@ -179,30 +165,6 @@ export default async function WhySwitchPage() {
               </article>
             );
           })}
-        </div>
-      </section>
-
-      <section className="bg-white px-6 py-24 lg:px-8">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-3">
-          <div className="rounded-[2rem] bg-brand-primary p-8 text-white">
-            <Scale className="h-8 w-8 text-brand-secondary" />
-            <h2 className="mt-6 text-2xl font-semibold">
-              {content.scaleCardTitle}
-            </h2>
-            <p className="mt-4 leading-7 text-slate-300">
-              {content.scaleCardDescription}
-            </p>
-          </div>
-
-          <div className="rounded-[2rem] border border-slate-200 bg-[#f7fbfc] p-8 lg:col-span-2">
-            <CheckCircle2 className="h-8 w-8 text-brand-primary" />
-            <h2 className="mt-6 text-3xl font-semibold">
-              {content.outcomeCardTitle}
-            </h2>
-            <p className="mt-5 text-lg leading-8 text-slate-600">
-              {content.outcomeCardDescription}
-            </p>
-          </div>
         </div>
       </section>
 

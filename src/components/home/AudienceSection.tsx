@@ -10,35 +10,65 @@ import {
 import { audiences as fallbackAudiences } from "@/src/data/site";
 import { Reveal } from "@/src/components/shared/Reveal";
 
+type AudienceCard = {
+  title?: string;
+  description?: string;
+};
+
 type AudienceContent = {
   audienceEyebrow?: string;
   audienceTitle?: string;
   audienceDescription?: string;
-  audienceCards?: string[];
+  audienceCards?: (string | AudienceCard)[];
+  audiences?: (string | AudienceCard)[];
 };
 
 const audienceIcons = [Building2, Landmark, Rocket, Smartphone];
+
+const fallbackAudienceCards: AudienceCard[] = fallbackAudiences.map((audience) => ({
+  title: audience,
+  description: "Reliable communication built for growth",
+}));
 
 const fallbackContent = {
   audienceEyebrow: "Who We Serve",
   audienceTitle: "Built for teams that need communication to work at scale.",
   audienceDescription:
     "Switch Integrated supports organisations that depend on reliable customer reach, verification, and mobile-first engagement.",
-  audienceCards: fallbackAudiences,
+  audienceCards: fallbackAudienceCards,
 };
+
+function normaliseAudienceCards(cards?: (string | AudienceCard)[]) {
+  if (!cards || cards.length === 0) return fallbackContent.audienceCards;
+
+  return cards.map((card) => {
+    if (typeof card === "string") {
+      return {
+        title: card,
+        description: "Reliable communication built for growth",
+      };
+    }
+
+    return {
+      title: card.title || "",
+      description: card.description || "",
+    };
+  });
+}
 
 export function AudienceSection({
   content,
 }: {
   content?: AudienceContent | null;
 }) {
+  const audienceCards = normaliseAudienceCards(
+    content?.audienceCards || content?.audiences,
+  );
+
   const audienceContent = {
     ...fallbackContent,
     ...content,
-    audienceCards:
-      content?.audienceCards && content.audienceCards.length > 0
-        ? content.audienceCards
-        : fallbackContent.audienceCards,
+    audienceCards,
   };
 
   return (
@@ -69,7 +99,7 @@ export function AudienceSection({
 
               <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center">
                 <div className="relative grid h-16 w-16 shrink-0 place-items-center rounded-3xl bg-brand-primary text-brand-secondary shadow-lg shadow-brand-primary/15">
-                  <span className="absolute inset-0 rounded-3xl bg-brand-secondary/20 animate-ping" />
+                  <span className="absolute inset-0 animate-ping rounded-3xl bg-brand-secondary/20" />
                   <UsersRound className="relative h-7 w-7" />
                 </div>
 
@@ -105,7 +135,7 @@ export function AudienceSection({
               const Icon = audienceIcons[index % audienceIcons.length];
 
               return (
-                <Reveal key={audience} delay={index * 120}>
+                <Reveal key={`${audience.title}-${index}`} delay={index * 120}>
                   <article className="group relative h-full overflow-hidden rounded-[2rem] border border-brand-secondary/15 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-primary/10">
                     <div className="absolute -right-14 -top-14 h-36 w-36 rounded-full bg-brand-secondary/10 transition duration-300 group-hover:scale-125" />
 
@@ -121,12 +151,12 @@ export function AudienceSection({
                       </div>
 
                       <h3 className="mt-8 font-heading text-xl font-extrabold tracking-[-0.03em] text-brand-dark">
-                        {audience}
+                        {audience.title}
                       </h3>
 
-                      <div className="mt-8 flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-brand-secondary">
-                        <Zap className="h-4 w-4" />
-                        Built to scale
+                      <div className="mt-8 flex items-start gap-2 text-sm font-bold leading-6 text-brand-secondary">
+                        <Zap className="mt-1 h-4 w-4 shrink-0" />
+                        <span>{audience.description}</span>
                       </div>
                     </div>
                   </article>

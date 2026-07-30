@@ -177,14 +177,25 @@ export default async function ContactPage() {
                     "42, Ashiek Jarma Street, Jabi, Abuja."
                   }
                 />
-                <ContactItem
-                  icon={Globe2}
-                  title="LinkedIn"
-                  value={
-                    siteSettings?.linkedin ||
-                    "linkedin.com/company/switch-integrated"
-                  }
-                />
+                <div>
+                  <ContactItem
+                    icon={Globe2}
+                    title="LinkedIn"
+                    value=""
+                  />
+                  <a
+                    href={
+                      siteSettings?.linkedin?.startsWith("http")
+                        ? siteSettings.linkedin
+                        : `https://${siteSettings?.linkedin || "linkedin.com/company/switch-integrated"}`
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                    className="-mt-8 ml-[4.5rem] block text-lg font-bold text-white underline decoration-brand-secondary/60 underline-offset-4 transition hover:text-brand-secondary"
+                  >
+                    {siteSettings?.linkedin || "linkedin.com/company/switch-integrated"}
+                  </a>
+                </div>
               </div>
             </div>
           </div>

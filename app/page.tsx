@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Footer } from "@/src/components/layout/Footer";
 import { Header } from "@/src/components/layout/Header";
 import { AboutPreview } from "@/src/components/home/AboutPreview";
@@ -19,7 +20,34 @@ import {
 
 export const revalidate = 60;
 
+export async function generateMetadata(): Promise<Metadata> {
+  const homepage = await client.fetch<Homepage | null>(homepageQuery);
+
+  const title =
+    homepage?.seo?.title ||
+    "Switch Integrated | Digital Communication Solutions | Nigeria";
+
+  const description =
+    homepage?.seo?.description ||
+    "Switch Integrated is a Nigerian digital solutions and customer engagement company delivering enterprise messaging, OTP, USSD, mobile engagement, and digital communication infrastructure for businesses across Africa.";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+    },
+  };
+}
+
+
 type Homepage = {
+  seo?: {
+    title?: string;
+    description?: string;
+  };
   heroEyebrow?: string;
   heroHeadline?: string;
   heroSubheadline?: string;
@@ -27,7 +55,13 @@ type Homepage = {
   primaryCtaUrl?: string;
   secondaryCtaText?: string;
   secondaryCtaUrl?: string;
-  audiences?: string[];
+  audiences?: (
+    | string
+    | {
+        title?: string;
+        description?: string;
+      }
+  )[];
   ecosystemEyebrow?: string;
   ecosystemTitle?: string;
   ecosystemDescription?: string;

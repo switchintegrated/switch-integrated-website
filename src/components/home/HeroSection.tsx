@@ -14,6 +14,11 @@ import {
   Sparkles,
 } from "lucide-react";
 
+type HeroAudience = string | {
+  title?: string;
+  description?: string;
+};
+
 type HeroContent = {
   heroEyebrow?: string;
   heroHeadline?: string;
@@ -22,11 +27,11 @@ type HeroContent = {
   primaryCtaUrl?: string;
   secondaryCtaText?: string;
   secondaryCtaUrl?: string;
-  audiences?: string[];
+  audiences?: HeroAudience[];
 };
 
 const fallbackContent: Required<Omit<HeroContent, "audiences">> & {
-  audiences: string[];
+  audiences: HeroAudience[];
 } = {
   heroEyebrow: "Where Businesses Connect, Engage, and Grow.",
   heroHeadline: "Connect every customer interaction in one intelligent layer.",
@@ -121,15 +126,19 @@ export function HeroSection({ content }: { content?: HeroContent | null }) {
           </div>
 
           <div className="mt-8 grid max-w-xl gap-3 sm:grid-cols-2">
-            {hero.audiences.map((item) => (
-              <div
-                key={item}
-                className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/8 px-4 py-3 text-sm font-bold text-white/90 backdrop-blur"
-              >
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-brand-secondary" />
-                {item}
-              </div>
-            ))}
+            {hero.audiences.map((item, index) => {
+              const label = typeof item === "string" ? item : item.title;
+
+              return (
+                <div
+                  key={`${label}-${index}`}
+                  className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/8 px-4 py-3 text-sm font-bold text-white/90 backdrop-blur"
+                >
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-brand-secondary" />
+                  {label}
+                </div>
+              );
+            })}
           </div>
         </div>
 
