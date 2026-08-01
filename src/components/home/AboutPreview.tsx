@@ -134,8 +134,17 @@ export function AboutPreview({
 
   const storyBlocks = splitStory(about.storyBody || about.heroSubheadline);
 
+  const getStoryBlock = (index: number) => {
+    return (
+      storyBlocks[index] || {
+        ...blockMeta[Math.min(index, blockMeta.length - 1)],
+        body: "",
+      }
+    );
+  };
+
   return (
-    <section className="relative overflow-hidden bg-white px-6 py-16 lg:px-8 lg:py-24">
+    <section className="relative overflow-hidden bg-white px-6 pt-16 pb-10 lg:px-8 lg:pt-24 lg:pb-14">
       <div className="absolute left-[-12%] top-[8%] h-96 w-96 rounded-full bg-brand-secondary/10 blur-3xl" />
       <div className="absolute right-[-12%] bottom-[-10%] h-96 w-96 rounded-full bg-brand-primary/10 blur-3xl" />
 
@@ -158,7 +167,7 @@ export function AboutPreview({
 
         <div className="mt-8 grid gap-5 lg:grid-cols-12">
           <article className="rounded-[2rem] border border-brand-secondary/15 bg-white p-6 shadow-sm lg:col-span-6 lg:p-8">
-            <StoryBlock block={storyBlocks[0]} featured />
+            <StoryBlock block={getStoryBlock(0)} featured />
           </article>
 
           <div className="overflow-hidden rounded-[2rem] border border-brand-secondary/15 bg-brand-soft p-2 shadow-xl shadow-brand-primary/10 lg:col-span-6">
@@ -182,14 +191,14 @@ export function AboutPreview({
           </div>
 
           <article className="rounded-[2rem] border border-brand-secondary/15 bg-brand-soft/70 p-6 shadow-sm lg:col-span-6 lg:p-8">
-            <StoryBlock block={storyBlocks[1]} />
+            <StoryBlock block={getStoryBlock(1)} />
           </article>
 
           <article className="rounded-[2rem] border border-brand-secondary/15 bg-white p-6 shadow-sm lg:col-span-6 lg:p-8">
-            <StoryBlock block={storyBlocks[2]} />
+            <StoryBlock block={getStoryBlock(2)} />
           </article>
 
-          <article className="overflow-hidden rounded-[2rem] border border-brand-secondary/15 bg-white shadow-sm lg:col-span-6">
+          <article className="grid overflow-hidden rounded-[2rem] border border-brand-secondary/15 bg-gradient-to-br from-brand-soft/90 via-white to-brand-secondary/10 shadow-sm lg:col-span-12 lg:grid-cols-[0.42fr_0.58fr] lg:items-start">
             <div className="relative h-40 md:h-48 lg:h-52">
               <Image
                 src="/images/switch-home-about-otp.webp"
@@ -200,24 +209,37 @@ export function AboutPreview({
               />
             </div>
 
-            <div className="p-6">
-              <StoryBlock block={storyBlocks[3]} compact />
+            <div className="relative p-6 lg:px-8">
+              <StoryBlock block={getStoryBlock(3)} compact />
             </div>
           </article>
 
-          <article className="overflow-hidden rounded-[2rem] border border-brand-secondary/15 bg-brand-dark text-white shadow-sm lg:col-span-6">
-            <div className="relative h-40 md:h-48 lg:h-52">
-              <Image
-                src="/images/switch-home-about-infrastructure.webp"
-                alt="Digital communication infrastructure network illustration"
-                width={1600}
-                height={900}
-                className="h-full w-full object-cover"
-              />
-            </div>
+          <article className="relative overflow-hidden rounded-[2rem] border border-brand-secondary/15 bg-brand-dark p-6 text-white shadow-sm lg:col-span-12">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_86%_18%,rgba(43,188,190,0.22),transparent_24%),radial-gradient(circle_at_10%_90%,rgba(43,188,190,0.14),transparent_22%)]" />
 
-            <div className="p-6">
-              <StoryBlock block={storyBlocks[4]} compact inverted />
+            <Image
+              src="/brand/switch-icon-teal.svg"
+              alt=""
+              width={260}
+              height={260}
+              className="absolute -right-10 -top-12 h-56 w-56 opacity-10"
+            />
+
+            <div className="relative grid gap-6 lg:grid-cols-[0.58fr_0.42fr] lg:items-center">
+              <div className="max-w-2xl">
+                <StoryBlock block={getStoryBlock(4)} compact inverted />
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                {["Communication", "Infrastructure", "Engagement", "Growth"].map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-xs font-black uppercase tracking-[0.16em] text-white/80 backdrop-blur"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
             </div>
           </article>
         </div>

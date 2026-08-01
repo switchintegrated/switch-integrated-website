@@ -62,7 +62,7 @@ const fallbackAbout: Required<Omit<AboutPageContent, "values" | "seo">> & {
     "Switch Integrated is a Nigerian-based digital solutions and customer engagement company working at the crossroads of mobile technology, digital infrastructure, and customer experience.",
   storyTitle: "Built to help businesses reach, serve, and grow.",
   storyBody:
-    "Our focus is simple: helping organisations across Africa reach their customers reliably, communicate at scale, and build the kind of digital engagement that drives real growth.",
+    "That’s the belief Switch Integrated was built on.\n\nWe are a Nigerian-based digital solutions and customer engagement company, working at the crossroads of mobile technology, digital infrastructure, and customer experience. Our focus is simple: helping organisations across Africa reach their customers reliably, communicate at scale, and build the kind of digital engagement that drives real growth.\n\nOur roots are deep in the digital communication and value-added services industry, a space we know intimately. But we have always believed that the opportunity is bigger than any single category. Today, Switch Integrated is building toward a broader vision: a full-service digital solutions company with the capacity to support businesses across communication, infrastructure, engagement, and growth.\n\nWith almost a decade of experience, we understand what it takes to make communication work in the real conditions of this market.\n\nWe work closely with our clients, not just as vendors, but as partners invested in their outcomes. We take the time to understand what businesses need, bring solutions that are practical and scalable, and stay committed for the long term.\n\nThis is a continent of extraordinary possibility. We’re here to help you access it.",
   vision:
     "To be the trusted digital solutions partner that African businesses turn to as they build, connect, and grow, today and into the future.",
   mission:
@@ -90,9 +90,9 @@ const fallbackAbout: Required<Omit<AboutPageContent, "values" | "seo">> & {
     },
   ],
   seo: {
-    title: "About Switch Integrated | African Digital Solutions Partner",
+    title: "About Us | Switch Integrated | Nigerian Digital Solutions Company",
     description:
-      "Learn about Switch Integrated, a digital solutions and customer engagement partner helping African businesses communicate, engage, and grow.",
+      "Learn about Switch Integrated — a Nigerian-based digital solutions company with almost a decade of experience helping African businesses communicate reliably, engage meaningfully, and scale with confidence.",
   },
 };
 
