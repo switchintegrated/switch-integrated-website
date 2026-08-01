@@ -1,6 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Globe2,
+  Network,
+  ShieldCheck,
+  Sparkles,
+  UsersRound,
+} from "lucide-react";
 
 type AboutPreviewContent = {
   heroEyebrow?: string;
@@ -26,32 +34,89 @@ const fallbackContent: Required<Omit<AboutPreviewContent, "values">> & {
   heroHeadline: "Built to help businesses communicate better and grow faster.",
   heroSubheadline:
     "Switch Integrated delivers digital solutions and customer engagement technology for businesses that need reliable communication infrastructure, mobile engagement, verification, and strategic digital support.",
-  storyTitle: "Who We Are",
+  storyTitle: "Our Story",
   storyBody:
-    "Switch Integrated is a digital solutions and customer engagement company helping African businesses connect with customers through reliable messaging, verification, mobile engagement, and communication infrastructure.",
+    "That’s the belief Switch Integrated was built on. We are a Nigerian-based digital solutions and customer engagement company, working at the crossroads of mobile technology, digital infrastructure, and customer experience. Our focus is simple: helping organisations across Africa reach their customers reliably, communicate at scale, and build the kind of digital engagement that drives real growth. Our roots are deep in the digital communication and value-added services industry, a space we know intimately. But we have always believed that the opportunity is bigger than any single category. Today, Switch Integrated is building toward a broader vision: a full-service digital solutions company with the capacity to support businesses across communication, infrastructure, engagement, and growth. With almost a decade of experience, we understand what it takes to make communication work in the real conditions of this market. We work closely with our clients, not just as vendors, but as partners invested in their outcomes. We take the time to understand what businesses need, bring solutions that are practical and scalable, and stay committed for the long term. This is a continent of extraordinary possibility. We’re here to help you access it.",
   vision:
     "To become a trusted African technology partner for businesses that want to connect, engage, and grow across the continent.",
   mission:
     "To provide digital communication and engagement solutions that help businesses reach customers more effectively, operate more efficiently, and scale with confidence.",
   values: [
     {
-      title: "Enterprise messaging",
-      description: "Reliable communication for growing businesses.",
+      title: "Partnership First",
+      description: "We work closely with clients as long-term partners.",
     },
     {
-      title: "Customer verification",
-      description: "Secure OTP and identity verification support.",
+      title: "Innovation With Purpose",
+      description: "We build practical solutions around real business needs.",
     },
     {
-      title: "Mobile engagement",
-      description: "Customer journeys across mobile-first channels.",
+      title: "Candour",
+      description: "We communicate clearly and work with openness.",
     },
     {
-      title: "Digital infrastructure",
-      description: "Scalable systems for business communication.",
+      title: "Growth Together",
+      description: "We stay invested in outcomes that help businesses scale.",
     },
   ],
 };
+
+const blockMeta = [
+  {
+    number: "01",
+    title: "The belief",
+    icon: Sparkles,
+  },
+  {
+    number: "02",
+    title: "Customer reach",
+    icon: ShieldCheck,
+  },
+  {
+    number: "03",
+    title: "Market roots",
+    icon: Network,
+  },
+  {
+    number: "04",
+    title: "Partnership in practice",
+    icon: UsersRound,
+  },
+  {
+    number: "05",
+    title: "Africa’s possibility",
+    icon: Globe2,
+  },
+];
+
+function splitStory(body: string) {
+  const sentences = body
+    .split(/(?<=\.)\s+/)
+    .map((sentence) => sentence.trim())
+    .filter(Boolean);
+
+  if (sentences.length < 6) {
+    return [
+      {
+        ...blockMeta[0],
+        body,
+      },
+    ];
+  }
+
+  const blocks = [
+    sentences.slice(0, 2).join(" "),
+    sentences.slice(2, 3).join(" "),
+    sentences.slice(3, 6).join(" "),
+    sentences.slice(6, 9).join(" "),
+    sentences.slice(9).join(" "),
+  ].filter(Boolean);
+
+  return blocks.map((body, index) => ({
+    ...blockMeta[Math.min(index, blockMeta.length - 1)],
+    body,
+  }));
+}
 
 export function AboutPreview({
   content,
@@ -67,86 +132,182 @@ export function AboutPreview({
         : fallbackContent.values,
   };
 
+  const storyBlocks = splitStory(about.storyBody || about.heroSubheadline);
+
   return (
-    <section className="relative overflow-hidden bg-white px-6 py-24 lg:px-8">
-      <div className="absolute left-[-10%] top-[8%] h-96 w-96 rounded-full bg-brand-secondary/10 blur-3xl" />
+    <section className="relative overflow-hidden bg-white px-6 py-16 lg:px-8 lg:py-24">
+      <div className="absolute left-[-12%] top-[8%] h-96 w-96 rounded-full bg-brand-secondary/10 blur-3xl" />
       <div className="absolute right-[-12%] bottom-[-10%] h-96 w-96 rounded-full bg-brand-primary/10 blur-3xl" />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[0.95fr_1.05fr]">
-        <div>
-          <p className="text-sm font-black uppercase tracking-[0.28em] text-brand-secondary">
-            {about.heroEyebrow}
-          </p>
+      <div className="relative mx-auto max-w-7xl">
+        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.28em] text-brand-secondary">
+              {about.heroEyebrow}
+            </p>
 
-          <h2 className="mt-5 max-w-3xl font-heading text-4xl font-extrabold tracking-[-0.045em] text-brand-dark md:text-6xl">
-            {about.storyTitle || about.heroHeadline}
-          </h2>
-
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-            {about.storyBody || about.heroSubheadline}
-          </p>
-
-          <div className="mt-9 grid gap-4 sm:grid-cols-2">
-            {about.values.slice(0, 4).map((item) => (
-              <div
-                key={item.title}
-                className="group flex items-center gap-3 rounded-2xl border border-brand-secondary/15 bg-brand-soft/70 px-4 py-4 transition hover:-translate-y-1 hover:bg-white hover:shadow-xl hover:shadow-brand-primary/10"
-              >
-                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white text-brand-primary shadow-sm transition group-hover:bg-brand-secondary">
-                  <CheckCircle2 className="h-5 w-5" />
-                </span>
-
-                <span className="text-sm font-bold text-brand-dark">
-                  {item.title}
-                </span>
-              </div>
-            ))}
+            <h2 className="mt-5 font-heading text-4xl font-extrabold tracking-[-0.045em] text-brand-dark md:text-6xl">
+              {about.storyTitle || about.heroHeadline}
+            </h2>
           </div>
 
-          <Link
-            href="/about"
-            className="mt-9 inline-flex items-center gap-2 rounded-full bg-brand-primary px-6 py-4 text-sm font-bold text-white shadow-lg shadow-brand-primary/20 transition hover:-translate-y-0.5 hover:bg-brand-dark"
-          >
-            Learn more about us
-            <ArrowRight className="h-4 w-4" />
-          </Link>
+          <p className="max-w-2xl text-lg leading-8 text-slate-600 lg:justify-self-end">
+            A guided look at the belief, experience, and partnership approach behind Switch Integrated.
+          </p>
         </div>
 
-        <div className="relative">
-          <div className="absolute -left-8 -top-8 h-36 w-36 rounded-full bg-brand-secondary/30 blur-3xl" />
-          <div className="absolute -bottom-8 -right-8 h-44 w-44 rounded-full bg-brand-primary/20 blur-3xl" />
+        <div className="mt-8 grid gap-5 lg:grid-cols-12">
+          <article className="rounded-[2rem] border border-brand-secondary/15 bg-white p-6 shadow-sm lg:col-span-6 lg:p-8">
+            <StoryBlock block={storyBlocks[0]} featured />
+          </article>
 
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-brand-secondary/15 bg-brand-soft p-3 shadow-2xl shadow-brand-primary/15">
-            <div className="relative overflow-hidden rounded-[2rem]">
+          <div className="overflow-hidden rounded-[2rem] border border-brand-secondary/15 bg-brand-soft p-2 shadow-xl shadow-brand-primary/10 lg:col-span-6">
+            <div className="relative overflow-hidden rounded-[1.5rem]">
               <Image
-                src="/images/about-team-strategy.webp"
-                alt="African business professionals discussing digital communication strategy on a laptop"
-                width={1803}
-                height={1002}
-                className="h-[430px] w-full object-cover transition duration-700 hover:scale-[1.03]"
+                src="/images/switch-solutions-custom-requirements.webp"
+                alt="African business team discussing digital communication strategy"
+                width={1600}
+                height={900}
+                className="h-48 w-full object-cover md:h-56 lg:h-64"
                 priority={false}
               />
 
               <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/45 via-transparent to-transparent" />
 
-              <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/85 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-brand-primary shadow-lg backdrop-blur">
+              <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-brand-primary shadow-lg backdrop-blur">
                 <Sparkles className="h-4 w-4 text-brand-secondary" />
                 Connect. Engage. Grow.
               </div>
-
-              <div className="absolute inset-x-5 bottom-5 rounded-[1.75rem] border border-white/30 bg-white/90 p-5 shadow-xl backdrop-blur-xl">
-                <p className="text-xs font-black uppercase tracking-[0.22em] text-brand-secondary">
-                  Human-first digital support
-                </p>
-
-                <p className="mt-2 font-heading text-xl font-extrabold tracking-[-0.03em] text-brand-dark">
-                  Helping teams connect, verify, engage, and scale.
-                </p>
-              </div>
             </div>
           </div>
+
+          <article className="rounded-[2rem] border border-brand-secondary/15 bg-brand-soft/70 p-6 shadow-sm lg:col-span-6 lg:p-8">
+            <StoryBlock block={storyBlocks[1]} />
+          </article>
+
+          <article className="rounded-[2rem] border border-brand-secondary/15 bg-white p-6 shadow-sm lg:col-span-6 lg:p-8">
+            <StoryBlock block={storyBlocks[2]} />
+          </article>
+
+          <article className="overflow-hidden rounded-[2rem] border border-brand-secondary/15 bg-white shadow-sm lg:col-span-6">
+            <div className="relative h-40 md:h-48 lg:h-52">
+              <Image
+                src="/images/switch-home-about-otp.webp"
+                alt="Customer verifying a phone number on a mobile device"
+                width={1600}
+                height={900}
+                className="h-full w-full object-cover"
+              />
+            </div>
+
+            <div className="p-6">
+              <StoryBlock block={storyBlocks[3]} compact />
+            </div>
+          </article>
+
+          <article className="overflow-hidden rounded-[2rem] border border-brand-secondary/15 bg-brand-dark text-white shadow-sm lg:col-span-6">
+            <div className="relative h-40 md:h-48 lg:h-52">
+              <Image
+                src="/images/switch-home-about-infrastructure.webp"
+                alt="Digital communication infrastructure network illustration"
+                width={1600}
+                height={900}
+                className="h-full w-full object-cover"
+              />
+            </div>
+
+            <div className="p-6">
+              <StoryBlock block={storyBlocks[4]} compact inverted />
+            </div>
+          </article>
         </div>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {about.values.slice(0, 4).map((item) => (
+            <div
+              key={item.title}
+              className="group flex items-center gap-3 rounded-2xl border border-brand-secondary/15 bg-white px-4 py-4 shadow-sm transition hover:-translate-y-1 hover:bg-brand-soft hover:shadow-xl hover:shadow-brand-primary/10"
+            >
+              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-brand-soft text-brand-primary shadow-sm transition group-hover:bg-brand-secondary">
+                <CheckCircle2 className="h-5 w-5" />
+              </span>
+
+              <span className="text-sm font-bold text-brand-dark">
+                {item.title}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <Link
+          href="/about"
+          className="mt-9 inline-flex items-center gap-2 rounded-full bg-brand-primary px-6 py-4 text-sm font-bold text-white shadow-lg shadow-brand-primary/20 transition hover:-translate-y-0.5 hover:bg-brand-dark"
+        >
+          Learn more about us
+          <ArrowRight className="h-4 w-4" />
+        </Link>
       </div>
     </section>
+  );
+}
+
+function StoryBlock({
+  block,
+  featured = false,
+  compact = false,
+  inverted = false,
+}: {
+  block: {
+    number: string;
+    title: string;
+    body: string;
+    icon: typeof Sparkles;
+  };
+  featured?: boolean;
+  compact?: boolean;
+  inverted?: boolean;
+}) {
+  const Icon = block.icon;
+
+  return (
+    <div>
+      <div className="flex items-center gap-4">
+        <div
+          className={`grid h-14 w-14 shrink-0 place-items-center rounded-3xl ${
+            inverted
+              ? "bg-white/10 text-brand-secondary"
+              : "bg-brand-soft text-brand-primary"
+          }`}
+        >
+          <Icon className="h-6 w-6" />
+        </div>
+
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-brand-secondary">
+            {block.number}
+          </p>
+
+          <h3
+            className={`font-heading text-2xl font-extrabold tracking-[-0.035em] ${
+              inverted ? "text-white" : "text-brand-dark"
+            }`}
+          >
+            {block.title}
+          </h3>
+        </div>
+      </div>
+
+      <p
+        className={`mt-5 ${
+          featured ? "border-l-4 border-brand-secondary pl-5" : ""
+        } ${
+          compact ? "text-base leading-7" : "text-lg leading-8"
+        } ${inverted ? "text-white/75" : "text-slate-600"} ${
+          featured ? "font-medium text-brand-dark" : ""
+        }`}
+      >
+        {block.body}
+      </p>
+    </div>
   );
 }
