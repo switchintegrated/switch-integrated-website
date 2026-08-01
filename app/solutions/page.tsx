@@ -112,9 +112,9 @@ const fallbackPage: Required<
   customCtaText: "Start a Conversation",
   customCtaUrl: "/contact",
   seo: {
-    title: "Solutions | Switch Integrated",
+    title: "Our Solutions | Enterprise Messaging, OTP, USSD & More | Switch Integrated",
     description:
-      "Explore Switch Integrated solutions for messaging, OTP, USSD, APIs, customer engagement, and digital communication infrastructure.",
+      "Switch Integrated offers enterprise messaging, OTP verification, USSD services, mobile engagement tools, and digital communication infrastructure for businesses and fintechs across Africa.",
   },
 };
 
@@ -175,7 +175,7 @@ export default async function SolutionsPage() {
     <main className="min-h-screen bg-[#f7fbfc] text-brand-dark">
       <Header />
 
-      <section className="relative overflow-hidden bg-white px-6 py-24 lg:px-8">
+      <section className="relative overflow-hidden bg-white px-6 pt-20 pb-10 lg:px-8 lg:pt-24 lg:pb-12">
         <div className="absolute left-[-10%] top-[-20%] h-96 w-96 rounded-full bg-brand-secondary/10 blur-3xl" />
         <div className="absolute bottom-[-20%] right-[-12%] h-[28rem] w-[28rem] rounded-full bg-brand-primary/10 blur-3xl" />
 
@@ -200,14 +200,14 @@ export default async function SolutionsPage() {
               alt={content.heroImageAlt}
               width={1600}
               height={1000}
-              className="h-[430px] w-full rounded-[2rem] object-cover"
+              className="h-[360px] w-full rounded-[2rem] object-cover lg:h-[390px]"
               priority
             />
           </div>
         </div>
       </section>
 
-      <section className="px-6 py-20 lg:px-8">
+      <section className="px-6 pt-10 pb-14 lg:px-8 lg:pt-12 lg:pb-16">
         <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2">
           {services.map((service) => {
             const title = service.title || "Untitled Service";
@@ -252,7 +252,7 @@ export default async function SolutionsPage() {
         </div>
       </section>
 
-      <section className="bg-white px-6 py-24 lg:px-8">
+      <section className="bg-white px-6 pt-10 pb-20 lg:px-8 lg:pt-12 lg:pb-24">
         <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[2.5rem] bg-brand-primary text-white shadow-2xl shadow-brand-primary/20 lg:grid-cols-[1fr_0.8fr]">
           <div className="p-8 md:p-14">
             <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-secondary">
@@ -276,13 +276,13 @@ export default async function SolutionsPage() {
             </Link>
           </div>
 
-          <div className="relative min-h-[320px] bg-brand-dark/20 p-5">
+          <div className="relative min-h-[280px] bg-brand-dark/20 p-5">
             <Image
               src={customImageSrc}
               alt={content.customImageAlt}
               width={1600}
               height={1000}
-              className="h-full min-h-[320px] w-full rounded-[2rem] object-cover opacity-95"
+              className="h-full min-h-[280px] w-full rounded-[2rem] object-cover opacity-95"
             />
           </div>
         </div>

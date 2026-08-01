@@ -102,7 +102,7 @@ const fallbackPage = {
     "If you are a business looking for a reliable communication partner, a fintech scaling your digital infrastructure, or a startup ready to build on solid foundations, Switch Integrated would love to start a conversation.",
   ctaButtonText: "Let’s Build Together",
   ctaButtonUrl: "/contact",
-  ctaImageAlt: "Partnership bridge visual",
+  ctaImageAlt: "Business team reviewing digital strategy together",
   seo: {
     title: "Partnership | Switch Integrated",
     description:
@@ -151,7 +151,7 @@ export default async function PartnershipPage() {
   const content = mergePage(page);
   const heroImageSrc = content.heroImage
     ? urlFor(content.heroImage).width(1600).height(1000).url()
-    : "/images/partnership-strategy-meeting.webp";
+    : "/images/about-team-strategy.webp";
   const ctaImageSrc = content.ctaImage
     ? urlFor(content.ctaImage).width(1600).height(1000).url()
     : "/images/partnership-strategy-meeting.webp";
@@ -160,11 +160,14 @@ export default async function PartnershipPage() {
     <main className="min-h-screen bg-[#f7fbfc] text-brand-dark">
       <Header />
 
-      <section className="relative overflow-hidden bg-white px-6 py-24 lg:px-8">
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-soft via-white to-brand-secondary/10 px-6 py-16 lg:px-8 lg:py-20">
+        <div className="absolute left-[-8%] top-[-10%] h-80 w-80 rounded-full bg-brand-secondary/18 blur-3xl" />
+        <div className="absolute right-[8%] top-[8%] h-56 w-56 rounded-full bg-brand-primary/10 blur-3xl" />
+        <div className="absolute right-[-6%] bottom-[-12%] h-80 w-80 rounded-full bg-brand-secondary/12 blur-3xl" />
         <div className="absolute left-[-12%] top-[-20%] h-96 w-96 rounded-full bg-brand-secondary/10 blur-3xl" />
         <div className="absolute bottom-[-25%] right-[-12%] h-[28rem] w-[28rem] rounded-full bg-brand-primary/10 blur-3xl" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+        <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
           <div>
             <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-primary">
               {content.heroEyebrow}
@@ -177,39 +180,66 @@ export default async function PartnershipPage() {
             </p>
           </div>
 
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-brand-secondary/20 bg-white p-3 shadow-2xl shadow-brand-primary/15">
+          <div className="relative self-start overflow-hidden rounded-[2.5rem] border border-brand-secondary/20 bg-white/85 p-3 shadow-2xl shadow-brand-primary/15 backdrop-blur lg:-mt-2">
             <Image
               src={heroImageSrc}
               alt={content.heroImageAlt || fallbackPage.heroImageAlt}
               width={1600}
               height={1000}
-              className="h-[430px] w-full rounded-[2rem] object-cover"
+              className="h-[380px] w-full rounded-[2rem] object-cover object-[76%_center] lg:h-[420px] lg:scale-[1.02]"
               priority
             />
           </div>
         </div>
       </section>
 
-      <section className="px-6 py-20 lg:px-8">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
-            <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-primary">
+      <section className="relative overflow-hidden px-6 py-16 lg:px-8 lg:py-20">
+        <div className="absolute left-[-10%] top-[10%] h-80 w-80 rounded-full bg-brand-secondary/10 blur-3xl" />
+        <div className="absolute right-[-10%] bottom-[-20%] h-96 w-96 rounded-full bg-brand-primary/10 blur-3xl" />
+
+        <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
+          <div className="rounded-[2rem] border border-brand-secondary/15 bg-white/80 p-8 shadow-sm backdrop-blur">
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-brand-secondary">
               {content.partnerEyebrow}
             </p>
-            <h2 className="mt-4 font-heading text-4xl font-extrabold tracking-[-0.035em]">
+
+            <h2 className="mt-4 font-heading text-4xl font-extrabold tracking-[-0.04em] md:text-5xl">
               {content.partnerHeadline}
             </h2>
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+              {["Shared vision", "Mutual investment", "Long-term growth"].map((item) => (
+                <div
+                  key={item}
+                  className="rounded-2xl border border-brand-secondary/15 bg-brand-soft/80 px-4 py-3 text-xs font-black uppercase tracking-[0.16em] text-brand-primary"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="space-y-6 rounded-[2rem] border border-brand-secondary/15 bg-white p-8 text-lg leading-8 text-slate-600 shadow-sm">
-            {content.partnerBody.split("\n\n").map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+          <div className="relative overflow-hidden rounded-[2rem] bg-brand-primary p-8 text-white shadow-2xl shadow-brand-primary/20 md:p-10">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_20%,rgba(43,188,190,0.24),transparent_28%),radial-gradient(circle_at_8%_90%,rgba(43,188,190,0.16),transparent_24%)]" />
+
+            <Image
+              src="/brand/switch-icon-teal.svg"
+              alt=""
+              width={260}
+              height={260}
+              className="absolute -right-12 -top-14 h-56 w-56 opacity-10"
+            />
+
+            <div className="relative space-y-6 text-lg leading-8 text-white/78">
+              {content.partnerBody.split("\n\n").map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-white px-6 py-24 lg:px-8">
+      <section className="bg-white px-6 pt-16 pb-10 lg:px-8 lg:pt-20 lg:pb-12">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl">
             <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-primary">
@@ -248,7 +278,7 @@ export default async function PartnershipPage() {
         </div>
       </section>
 
-      <section className="px-6 py-24 lg:px-8">
+      <section className="px-6 pt-10 pb-20 lg:px-8 lg:pt-12 lg:pb-24">
         <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[2.5rem] bg-brand-primary text-white shadow-2xl shadow-brand-primary/20 lg:grid-cols-[1fr_0.8fr]">
           <div className="p-8 md:p-14">
             <Handshake className="h-10 w-10 text-brand-secondary" />
@@ -268,13 +298,13 @@ export default async function PartnershipPage() {
             </Link>
           </div>
 
-          <div className="relative min-h-[320px] bg-brand-dark/20 p-5">
+          <div className="relative min-h-[300px] bg-brand-dark/20 p-5">
             <Image
               src={ctaImageSrc}
               alt={content.ctaImageAlt || fallbackPage.ctaImageAlt}
               width={1600}
               height={1000}
-              className="h-full min-h-[320px] w-full rounded-[2rem] object-cover opacity-95"
+              className="h-full min-h-[300px] w-full rounded-[2rem] object-cover object-center opacity-95"
             />
           </div>
         </div>

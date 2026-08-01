@@ -61,9 +61,9 @@ const fallbackPage = {
   successMessage:
     "Thank you. Your message has been received and our team will get back to you shortly.",
   seo: {
-    title: "Contact Switch Integrated",
+    title: "Contact Switch Integrated | Start a Conversation Today",
     description:
-      "Contact Switch Integrated for messaging, verification, USSD, customer engagement, and digital communication infrastructure solutions.",
+      "Get in touch with Switch Integrated. Whether you need enterprise messaging, OTP services, USSD solutions, or a strategic communication partner, we’re ready to help.",
   },
 };
 
@@ -109,43 +109,71 @@ export default async function ContactPage() {
     ? urlFor(content.heroImage).width(1600).height(1000).url()
     : "/images/contact-customer-support.webp";
 
+  const rawLinkedin =
+    siteSettings?.linkedin || "linkedin.com/company/switch-integrated";
+  const linkedinHref = rawLinkedin.startsWith("http")
+    ? rawLinkedin
+    : `https://${rawLinkedin}`;
+
   return (
     <main className="min-h-screen bg-[#f7fbfc] text-brand-dark">
       <Header />
 
-      <section className="relative overflow-hidden bg-white px-6 py-24 lg:px-8">
-        <div className="absolute left-[-10%] top-[-20%] h-96 w-96 rounded-full bg-brand-secondary/10 blur-3xl" />
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-soft via-white to-brand-secondary/10 px-6 pt-20 pb-12 lg:px-8 lg:pt-24 lg:pb-14">
+        <div className="absolute left-[-10%] top-[-18%] h-96 w-96 rounded-full bg-brand-secondary/15 blur-3xl" />
+        <div className="absolute right-[10%] top-[14%] h-56 w-56 rounded-full bg-brand-primary/10 blur-3xl" />
         <div className="absolute bottom-[-25%] right-[-12%] h-[28rem] w-[28rem] rounded-full bg-brand-primary/10 blur-3xl" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+        <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div>
-            <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-primary">
+            <p className="text-sm font-black uppercase tracking-[0.28em] text-brand-secondary">
               {content.heroEyebrow}
             </p>
-            <h1 className="mt-5 font-heading text-5xl font-extrabold tracking-[-0.04em] md:text-6xl">
+
+            <h1 className="mt-5 font-heading text-5xl font-extrabold tracking-[-0.05em] md:text-6xl">
               {content.heroHeadline}
             </h1>
+
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
               {content.heroSubheadline}
             </p>
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-3">
+              {[
+                "Tell us your need",
+                "Speak with Switch",
+                "Build the right path",
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="rounded-2xl border border-brand-secondary/15 bg-white/80 px-4 py-3 text-xs font-black uppercase tracking-[0.14em] text-brand-primary shadow-sm backdrop-blur"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-brand-secondary/20 bg-white p-3 shadow-2xl shadow-brand-primary/15">
+          <div className="relative overflow-hidden rounded-[2.5rem] border border-brand-secondary/20 bg-white/85 p-3 shadow-2xl shadow-brand-primary/15 backdrop-blur">
             <Image
               src={heroImageSrc}
               alt={content.heroImageAlt || fallbackPage.heroImageAlt}
               width={1600}
               height={1000}
-              className="h-[430px] w-full rounded-[2rem] object-cover"
+              className="h-[380px] w-full rounded-[2rem] object-cover object-center lg:h-[410px]"
               priority
             />
+
+            <div className="absolute left-8 top-8 rounded-full border border-white/30 bg-white/90 px-5 py-3 text-xs font-black uppercase tracking-[0.18em] text-brand-primary shadow-xl backdrop-blur">
+              Start a conversation
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="px-6 py-20 lg:px-8">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-          <div className="relative overflow-hidden rounded-[2rem] bg-brand-primary p-8 text-white shadow-2xl shadow-brand-primary/20">
+      <section className="px-6 pt-10 pb-20 lg:px-8 lg:pt-12 lg:pb-24">
+        <div className="mx-auto grid max-w-7xl items-start gap-8 lg:grid-cols-[0.82fr_1.18fr]">
+          <div className="relative overflow-hidden rounded-[2rem] bg-brand-primary p-7 text-white shadow-2xl shadow-brand-primary/20 md:p-8">
             <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-brand-secondary/20 blur-2xl" />
             <div className="relative">
               <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-secondary">
@@ -158,7 +186,7 @@ export default async function ContactPage() {
                 {content.reachDescription}
               </p>
 
-              <div className="mt-8 rounded-[2rem] bg-white/10 p-6 backdrop-blur">
+              <div className="mt-7 rounded-[2rem] bg-white/10 p-5 backdrop-blur md:p-6">
                 <ContactItem
                   icon={Mail}
                   title="Email"
@@ -177,24 +205,22 @@ export default async function ContactPage() {
                     "42, Ashiek Jarma Street, Jabi, Abuja."
                   }
                 />
-                <div>
-                  <ContactItem
-                    icon={Globe2}
-                    title="LinkedIn"
-                    value=""
-                  />
-                  <a
-                    href={
-                      siteSettings?.linkedin?.startsWith("http")
-                        ? siteSettings.linkedin
-                        : `https://${siteSettings?.linkedin || "linkedin.com/company/switch-integrated"}`
-                    }
-                    target="_blank"
-                    rel="noreferrer"
-                    className="-mt-8 ml-[4.5rem] block text-lg font-bold text-white underline decoration-brand-secondary/60 underline-offset-4 transition hover:text-brand-secondary"
-                  >
-                    {siteSettings?.linkedin || "linkedin.com/company/switch-integrated"}
-                  </a>
+                <div className="flex gap-5 border-t border-white/10 pt-6">
+                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white/10 text-brand-secondary">
+                    <Globe2 className="h-5 w-5" />
+                  </div>
+
+                  <div className="min-w-0">
+                    <p className="text-sm text-white/55">LinkedIn</p>
+                    <a
+                      href={linkedinHref}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-1 inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-sm font-bold text-white underline decoration-brand-secondary/60 underline-offset-4 transition hover:bg-brand-secondary hover:text-brand-primary"
+                    >
+                      Visit our LinkedIn page
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

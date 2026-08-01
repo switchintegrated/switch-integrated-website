@@ -113,8 +113,12 @@ function mergeAbout(content?: AboutPageContent | null) {
 
 
 function getStorySections(storyBody: string) {
-  const paragraphs = storyBody
-    .split("\n")
+  const normalisedStoryBody = storyBody
+    .replace(/\\n\\n/g, "\n\n")
+    .replace(/\\n/g, "\n");
+
+  const paragraphs = normalisedStoryBody
+    .split(/\n\s*\n/)
     .map((paragraph) => paragraph.trim())
     .filter(Boolean);
 
@@ -123,8 +127,8 @@ function getStorySections(storyBody: string) {
       eyebrow: "Built on belief",
       title: "Communication infrastructure should work for African businesses.",
       body: paragraphs[0] || "",
-      image: "/images/africa-digital-skyline.webp",
-      alt: "African skyline representing digital communication opportunity",
+      image: "/images/light-trails-buildings.webp",
+      alt: "Digital city light trails representing connected communication infrastructure",
       crop: "object-center",
     },
     {
@@ -190,13 +194,13 @@ export default async function AboutPage() {
     <main className="min-h-screen bg-[#f7fbfc] text-brand-dark">
       <Header />
 
-      <section className="relative overflow-hidden bg-white px-6 py-24 lg:px-8">
+      <section className="relative overflow-hidden bg-white px-6 pt-20 pb-12 lg:px-8 lg:pt-24 lg:pb-14">
         <div className="absolute left-[-10%] top-[-20%] h-96 w-96 rounded-full bg-brand-secondary/10 blur-3xl" />
         <div className="absolute bottom-[-25%] right-[-10%] h-[28rem] w-[28rem] rounded-full bg-brand-primary/10 blur-3xl" />
 
         <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div>
-            <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-primary">
+            <p className="text-xs font-black uppercase tracking-[0.25em] text-brand-secondary">
               {about.heroEyebrow}
             </p>
             <h1 className="mt-5 font-heading text-5xl font-extrabold tracking-[-0.045em] md:text-6xl">
@@ -213,8 +217,8 @@ export default async function AboutPage() {
 
             <div className="relative overflow-hidden rounded-[2.5rem] border border-brand-secondary/20 bg-white p-3 shadow-2xl shadow-brand-primary/15">
               <Image
-                src="/images/about-team-strategy.webp"
-                alt="Business professionals discussing digital communication strategy on a laptop"
+                src="/images/switch-home-about-crop.jpg"
+                alt="African business professionals in a team discussion"
                 width={1803}
                 height={1002}
                 className="h-[430px] w-full rounded-[2rem] object-cover"
@@ -242,10 +246,10 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="px-6 py-24 lg:px-8">
+      <section className="px-6 pt-10 pb-8 lg:px-8 lg:pt-12 lg:pb-10">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl">
-            <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-primary">
+            <p className="text-xs font-black uppercase tracking-[0.25em] text-brand-secondary">
               Our Story
             </p>
             <h2 className="mt-4 font-heading text-4xl font-extrabold tracking-[-0.035em] md:text-5xl">
@@ -257,16 +261,16 @@ export default async function AboutPage() {
             </p>
           </div>
 
-          <div className="mt-14 space-y-8">
+          <div className="mt-12 space-y-6">
             {storySections.map((section, index) => (
               <article
                 key={section.title}
-                className={`grid overflow-hidden rounded-[2.25rem] border border-brand-secondary/15 bg-white shadow-sm lg:grid-cols-[0.9fr_1.1fr] ${
-                  index % 2 === 1 ? "lg:grid-cols-[1.1fr_0.9fr]" : ""
+                className={`grid overflow-hidden rounded-[2rem] border border-brand-secondary/15 bg-white shadow-sm lg:grid-cols-[0.75fr_1.25fr] lg:items-center ${
+                  index % 2 === 1 ? "lg:grid-cols-[1.25fr_0.75fr] lg:items-center" : ""
                 }`}
               >
                 <div
-                  className={`relative h-[280px] lg:h-[380px] ${
+                  className={`relative h-[220px] lg:h-[300px] ${
                     index % 2 === 1 ? "lg:order-2" : ""
                   }`}
                 >
@@ -280,14 +284,14 @@ export default async function AboutPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/35 via-transparent to-transparent" />
                 </div>
 
-                <div className="flex flex-col justify-center p-7 md:p-10 lg:p-12">
-                  <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-primary">
+                <div className="flex flex-col justify-center p-7 md:p-9 lg:p-10">
+                  <p className="text-xs font-black uppercase tracking-[0.25em] text-brand-secondary">
                     {section.eyebrow}
                   </p>
-                  <h3 className="mt-4 font-heading text-3xl font-extrabold tracking-[-0.035em] md:text-4xl">
+                  <h3 className="mt-4 max-w-2xl font-heading text-2xl font-extrabold tracking-[-0.035em] md:text-3xl">
                     {section.title}
                   </h3>
-                  <p className="mt-5 text-base leading-8 text-slate-600 md:text-lg">
+                  <p className="mt-5 max-w-3xl text-base leading-8 text-slate-600">
                     {section.body}
                   </p>
                 </div>
@@ -297,7 +301,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-white px-6 py-24 lg:px-8">
+      <section className="bg-white px-6 pt-8 pb-6 lg:px-8 lg:pt-10 lg:pb-8">
         <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-2">
           <div className="group rounded-[2rem] border border-brand-secondary/15 bg-[#f7fbfc] p-8 transition hover:-translate-y-1 hover:bg-white hover:shadow-2xl hover:shadow-brand-primary/10">
             <div className="grid h-14 w-14 place-items-center rounded-2xl bg-brand-primary text-brand-secondary shadow-lg shadow-brand-primary/15">
@@ -325,10 +329,10 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="px-6 py-24 lg:px-8">
+      <section className="px-6 pt-8 pb-20 lg:px-8 lg:pt-8 lg:pb-24">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl">
-            <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-brand-primary">
+            <p className="text-xs font-black uppercase tracking-[0.25em] text-brand-secondary">
               Core Values
             </p>
             <h2 className="mt-4 font-heading text-4xl font-extrabold tracking-[-0.035em] md:text-5xl">
