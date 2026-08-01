@@ -35,14 +35,14 @@ export function EcosystemSection({
   };
 
   return (
-    <section className="bg-[#eef8fa] py-24">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8">
+    <section className="bg-[#eef8fa] py-16 lg:py-24">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12 lg:px-8">
         <div>
           <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-primary">
             {ecosystem.ecosystemEyebrow}
           </p>
 
-          <h2 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
+          <h2 className="mt-4 text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
             {ecosystem.ecosystemTitle}
           </h2>
 
@@ -50,11 +50,11 @@ export function EcosystemSection({
             {ecosystem.ecosystemDescription}
           </p>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <div className="mt-8 grid gap-3 sm:grid-cols-2">
             {ecosystem.ecosystemItems.map((item) => (
               <div
                 key={item}
-                className="rounded-2xl border border-brand-secondary/15 bg-white/70 px-4 py-3 text-sm font-bold text-slate-700"
+                className="rounded-2xl border border-brand-secondary/15 bg-white/80 px-4 py-4 text-base font-bold text-slate-700 shadow-sm"
               >
                 {item}
               </div>
@@ -62,7 +62,9 @@ export function EcosystemSection({
           </div>
         </div>
 
-        <CommunicationOrbit />
+        <div className="hidden lg:block">
+          <CommunicationOrbit />
+        </div>
       </div>
     </section>
   );

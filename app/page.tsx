@@ -20,8 +20,17 @@ import {
 
 export const revalidate = 60;
 
+async function safeFetch<T>(query: string, fallback: T): Promise<T> {
+  try {
+    return await client.fetch<T>(query);
+  } catch (error) {
+    console.warn("Sanity fetch failed. Using fallback content.", error);
+    return fallback;
+  }
+}
+
 export async function generateMetadata(): Promise<Metadata> {
-  const homepage = await client.fetch<Homepage | null>(homepageQuery);
+  const homepage = await safeFetch<Homepage | null>(homepageQuery, null);
 
   const title =
     homepage?.seo?.title ||
@@ -130,11 +139,11 @@ type WhySwitchPage = {
 export default async function Home() {
   const [homepage, services, siteSettings, aboutPage, whySwitchPage] =
     await Promise.all([
-      client.fetch<Homepage | null>(homepageQuery),
-      client.fetch<Service[]>(servicesQuery),
-      client.fetch<SiteSettings | null>(siteSettingsQuery),
-      client.fetch<AboutPage | null>(aboutPageQuery),
-      client.fetch<WhySwitchPage | null>(whySwitchPageQuery),
+      safeFetch<Homepage | null>(homepageQuery, null),
+      safeFetch<Service[]>(servicesQuery, []),
+      safeFetch<SiteSettings | null>(siteSettingsQuery, null),
+      safeFetch<AboutPage | null>(aboutPageQuery, null),
+      safeFetch<WhySwitchPage | null>(whySwitchPageQuery, null),
     ]);
 
   return (

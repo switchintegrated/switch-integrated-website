@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, Mail, MapPin, Phone, Sparkles } from "lucide-react";
 
@@ -45,20 +46,14 @@ export function Footer({ settings }: { settings?: SiteSettings | null }) {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 border-b border-white/10 pb-10 lg:grid-cols-[1.2fr_0.8fr_1fr]">
           <div>
-            <Link href="/" className="group flex items-center gap-3">
-              <div className="relative grid h-12 w-12 place-items-center overflow-hidden rounded-2xl bg-brand-secondary text-sm font-extrabold text-brand-primary shadow-lg shadow-brand-secondary/10">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.7),transparent_34%)]" />
-                <span className="relative">SI</span>
-              </div>
-
-              <div>
-                <p className="font-heading text-base font-extrabold tracking-[-0.03em] text-white">
-                  {content.siteName}
-                </p>
-                <p className="text-xs font-medium text-white/50">
-                  {content.tagline}
-                </p>
-              </div>
+            <Link href="/" className="inline-flex">
+              <Image
+                src="/brand/switch-logo-footer.svg"
+                alt={content.siteName}
+                width={220}
+                height={64}
+                className="h-14 w-auto brightness-0 invert"
+              />
             </Link>
 
             <p className="mt-6 max-w-md text-sm leading-7 text-white/60">
