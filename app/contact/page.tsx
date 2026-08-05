@@ -164,14 +164,17 @@ export default async function ContactPage() {
               priority
             />
 
-            <div className="absolute left-8 top-8 rounded-full border border-white/30 bg-white/90 px-5 py-3 text-xs font-black uppercase tracking-[0.18em] text-brand-primary shadow-xl backdrop-blur">
-              Start a conversation
-            </div>
+            <a
+              href="#contact-form"
+              className="absolute left-8 top-8 rounded-full border border-white/30 bg-white/90 px-5 py-3 text-xs font-black uppercase tracking-[0.18em] text-brand-primary shadow-xl backdrop-blur transition hover:bg-brand-secondary hover:text-brand-primary"
+            >
+              Start the Conversation
+            </a>
           </div>
         </div>
       </section>
 
-      <section className="px-6 pt-10 pb-20 lg:px-8 lg:pt-12 lg:pb-24">
+      <section id="contact-form" className="scroll-mt-32 px-6 pt-10 pb-20 lg:px-8 lg:pt-12 lg:pb-24">
         <div className="mx-auto grid max-w-7xl items-start gap-8 lg:grid-cols-[0.82fr_1.18fr]">
           <div className="relative overflow-hidden rounded-[2rem] bg-brand-primary p-7 text-white shadow-2xl shadow-brand-primary/20 md:p-8">
             <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-brand-secondary/20 blur-2xl" />
@@ -211,12 +214,11 @@ export default async function ContactPage() {
                   </div>
 
                   <div className="min-w-0">
-                    <p className="text-sm text-white/55">LinkedIn</p>
                     <a
                       href={linkedinHref}
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-1 inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-sm font-bold text-white underline decoration-brand-secondary/60 underline-offset-4 transition hover:bg-brand-secondary hover:text-brand-primary"
+                      className="inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-sm font-bold text-white underline decoration-brand-secondary/60 underline-offset-4 transition hover:bg-brand-secondary hover:text-brand-primary"
                     >
                       Visit our LinkedIn page
                     </a>

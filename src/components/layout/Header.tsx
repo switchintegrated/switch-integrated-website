@@ -57,7 +57,7 @@ export function Header() {
         </nav>
 
         <Link
-          href="/contact"
+          href="/contact#contact-form"
           className="hidden rounded-full bg-brand-primary px-7 py-4 text-sm font-extrabold text-white shadow-xl shadow-brand-primary/20 transition hover:-translate-y-0.5 hover:bg-brand-dark lg:inline-flex"
         >
           Let’s Talk
@@ -89,7 +89,7 @@ export function Header() {
               })}
 
               <Link
-                href="/contact"
+                href="/contact#contact-form"
                 className="mt-2 rounded-2xl bg-brand-primary px-4 py-4 text-center text-base font-extrabold text-white shadow-lg shadow-brand-primary/20"
               >
                 Let’s Talk

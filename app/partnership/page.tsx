@@ -104,10 +104,10 @@ const fallbackPage = {
   ctaButtonUrl: "/contact",
   ctaImageAlt: "Business team reviewing digital strategy together",
   seo: {
-    title: "Partnership | Switch Integrated",
+    title: "Partnership | Build With Switch Integrated Across Africa",
     description:
-      "Partner with Switch Integrated to build scalable communication, customer engagement, verification, and mobile infrastructure solutions.",
-  },
+      "Switch Integrated partners with enterprises, fintechs, telecom operators, and growing businesses across Africa to build reliable digital communication and engagement solutions.",
+  }
 };
 
 function mergePage(content?: PartnershipPageContent | null) {

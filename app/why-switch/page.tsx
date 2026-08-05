@@ -194,43 +194,6 @@ export default async function WhySwitchPage() {
             );
           })}
 
-          <article className="relative overflow-hidden rounded-[2rem] bg-brand-primary p-8 text-white shadow-2xl shadow-brand-primary/20">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(43,188,190,0.28),transparent_28%),radial-gradient(circle_at_10%_90%,rgba(43,188,190,0.18),transparent_24%)]" />
-
-            <Image
-              src="/brand/switch-icon-teal.svg"
-              alt=""
-              width={240}
-              height={240}
-              className="absolute -right-10 -top-10 h-52 w-52 opacity-10"
-            />
-
-            <div className="relative">
-              <p className="text-xs font-black uppercase tracking-[0.22em] text-brand-secondary">
-                Switch advantage
-              </p>
-
-              <h2 className="mt-5 font-heading text-3xl font-extrabold tracking-[-0.04em]">
-                Built for partners who need more than a vendor.
-              </h2>
-
-              <p className="mt-5 leading-7 text-white/75">
-                The difference is not only what we deliver. It is how we listen,
-                how we integrate, and how we stay invested after go-live.
-              </p>
-
-              <div className="mt-7 grid grid-cols-2 gap-3">
-                {["Reliable", "Clear", "Scalable", "Partner-led"].map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-bold text-white"
-                  >
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </article>
         </div>
       </section>
 
