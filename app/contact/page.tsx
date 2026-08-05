@@ -164,12 +164,7 @@ export default async function ContactPage() {
               priority
             />
 
-            <a
-              href="#contact-form"
-              className="absolute left-8 top-8 rounded-full border border-white/30 bg-white/90 px-5 py-3 text-xs font-black uppercase tracking-[0.18em] text-brand-primary shadow-xl backdrop-blur transition hover:bg-brand-secondary hover:text-brand-primary"
-            >
-              Start the Conversation
-            </a>
+
           </div>
         </div>
       </section>
